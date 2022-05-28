@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/28 03:05:39 by charles          ###   ########.fr       */
+/*   Updated: 2022/05/28 03:40:35 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ void    game_initialize(t_cub3d *cub3d);
 */
 
 void    game_loop(t_cub3d *cub3d);
+void    mouse_rotation(t_cub3d *cub3d);
 
 /*
 ** Minimap and overlay functions

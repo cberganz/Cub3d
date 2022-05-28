@@ -6,7 +6,7 @@
 #    By: charles <charles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 14:42:18 by cberganz          #+#    #+#              #
-#    Updated: 2022/05/28 02:28:00 by charles          ###   ########.fr        #
+#    Updated: 2022/05/28 03:28:08 by charles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC_NAME		=	main.c			\
 					minimap.c		\
 					overlay.c		\
 					background.c	\
+					mouse.c			\
 					game.c			\
 					initialize.c	\
 					utils.c			\

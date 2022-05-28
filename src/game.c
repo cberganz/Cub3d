@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:06:45 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/28 02:39:00 by charles          ###   ########.fr       */
+/*   Updated: 2022/05/28 03:41:08 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	key_release_hook(int key, t_cub3d *cub3d)
 
 int    loop(t_cub3d *cub3d)
 {
+	mouse_rotation(cub3d);
+    mlx_mouse_move(cub3d->mlx, cub3d->mlx_win, SCREEN_WIDTH / 2, SCREEN_WIDTH / 2);
 	move_vision(cub3d);
 	move_player(cub3d);
 	put_background(cub3d);
