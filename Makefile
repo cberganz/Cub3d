@@ -6,7 +6,7 @@
 #    By: charles <charles@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 14:42:18 by cberganz          #+#    #+#              #
-#    Updated: 2022/05/26 23:55:48 by charles          ###   ########.fr        #
+#    Updated: 2022/05/28 02:28:00 by charles          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,21 @@ NAME_BONUS		= Cub3d_bonus
 
 INCLUDE			= include/
 
-HEADER			= ${INCLUDE}minimap.h
+HEADER			= ${INCLUDE}cub3d.h
 
 CC				= clang
 
 CFLAGS			= -Wall -Wextra -Werror -g
 
-SRC_NAME		= minimap.c
+SRC_NAME		=	main.c			\
+					minimap.c		\
+					overlay.c		\
+					background.c	\
+					game.c			\
+					initialize.c	\
+					utils.c			\
+					parsing.c		\
+					exit.c
 
 SRC_DIR			= src/
 SRC				= ${addprefix ${SRC_DIR}, ${SRC_NAME}}
