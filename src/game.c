@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:06:45 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/29 17:04:04 by charles          ###   ########.fr       */
+/*   Updated: 2022/05/29 18:21:39 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,16 @@ static void	move_player(t_cub3d *cub3d)
 {
 	if (cub3d->keyboard.top && !cub3d->keyboard.bottom)
 	{
- 		if (cub3d->map[(int)(cub3d->player.posY + cub3d->player.dirY * MOVE_SPEED)][(int)cub3d->player.posX] == '0')
+ 		if (cub3d->map_struct.map_strs[(int)(cub3d->player.posY + cub3d->player.dirY * MOVE_SPEED)][(int)cub3d->player.posX] == '0')
  			cub3d->player.posY += cub3d->player.dirY * MOVE_SPEED;
- 		if (cub3d->map[(int)cub3d->player.posY][(int)(cub3d->player.posX + cub3d->player.dirX * MOVE_SPEED)] == '0')
+ 		if (cub3d->map_struct.map_strs[(int)cub3d->player.posY][(int)(cub3d->player.posX + cub3d->player.dirX * MOVE_SPEED)] == '0')
   		  	cub3d->player.posX += cub3d->player.dirX * MOVE_SPEED;
 	}
 	else if (cub3d->keyboard.bottom && !cub3d->keyboard.top)
 	{
- 		if (cub3d->map[(int)(cub3d->player.posY - cub3d->player.dirY * MOVE_SPEED)][(int)cub3d->player.posX] == '0')
+ 		if (cub3d->map_struct.map_strs[(int)(cub3d->player.posY - cub3d->player.dirY * MOVE_SPEED)][(int)cub3d->player.posX] == '0')
  			cub3d->player.posY -= cub3d->player.dirY * MOVE_SPEED;
- 		if (cub3d->map[(int)cub3d->player.posY][(int)(cub3d->player.posX - cub3d->player.dirX * MOVE_SPEED)] == '0')
+ 		if (cub3d->map_struct.map_strs[(int)cub3d->player.posY][(int)(cub3d->player.posX - cub3d->player.dirX * MOVE_SPEED)] == '0')
   		  	cub3d->player.posX -= cub3d->player.dirX * MOVE_SPEED;
 	}
 }

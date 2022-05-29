@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:01:42 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/29 17:04:10 by charles          ###   ########.fr       */
+/*   Updated: 2022/05/29 19:16:24 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void    raycast_find_wall(t_cub3d *cub3d, t_raycast *raycast)
           raycast->mapY += raycast->stepY;
           raycast->side = 1;
         }
-        if (cub3d->map[raycast->mapY][raycast->mapX] == '1') 
+        if (cub3d->map_struct.map_strs[raycast->mapY][raycast->mapX] == '1') 
             raycast->hit = 1;
     }
     if (raycast->side == 0)

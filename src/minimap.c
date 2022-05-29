@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 22:15:12 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/29 04:52:34 by charles          ###   ########.fr       */
+/*   Updated: 2022/05/29 18:24:19 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static void	put_pixel_to_img(t_tex *img, int x, int y, int color)
 
 static int    get_color(t_cub3d *cub3d, float x, float y)
 {
-    if (x < 0 || x >= cub3d->width || y < 0 || y >= cub3d->height)
+    if (x < 0 || x >= cub3d->map_struct.width || y < 0 || y >= cub3d->map_struct.height)
         return (MINIMAP_OUTMAP_COLOR);
-    if (cub3d->map[(int)y][(int)x] == '1')
+    if (cub3d->map_struct.map_strs[(int)y][(int)x] == '1')
         return (MINIMAP_WALL_COLOR);
-    else if (cub3d->map[(int)y][(int)x] == '0')
+    else if (cub3d->map_struct.map_strs[(int)y][(int)x] == '0')
         return (MINIMAP_FLOOR_COLOR);
     else
         return (MINIMAP_OUTMAP_COLOR);

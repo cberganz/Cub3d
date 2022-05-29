@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: charles <charles@student.42.fr>            +#+  +:+       +#+         #
+#    By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 14:42:18 by cberganz          #+#    #+#              #
-#    Updated: 2022/05/29 03:08:36 by charles          ###   ########.fr        #
+#    Updated: 2022/05/29 18:55:22 by rbicanic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,17 @@ SRC_NAME		=	main.c			\
 					initialize.c	\
 					utils.c			\
 					parsing.c		\
-					exit.c
+					exit.c			\
+					parsing/parsing_file_to_strs.c		\
+					parsing/parsing_file_get_textures.c	\
+					parsing/parsing_get_map.c			\
+					parsing/check_path.c				\
+					parsing/check_map_error.c			\
+					parsing/check_instructions_error.c	\
+					parsing/global_parsing.c			\
+					utils/utils_exit.c					\
+					utils/utils_str_to_int.c
+
 
 SRC_DIR			= src/
 SRC				= ${addprefix ${SRC_DIR}, ${SRC_NAME}}
