@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:06:45 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/29 04:58:58 by charles          ###   ########.fr       */
+/*   Updated: 2022/05/29 17:04:04 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,25 @@ static void	move_vision(t_cub3d *cub3d)
  	double	oldPlaneX;
 	int		x;
 	int		y;
+	int		speed;
 
 	oldDirX = cub3d->player.dirX;
  	oldPlaneX = cub3d->raycast.planeX;
     mlx_mouse_get_pos(cub3d->mlx, cub3d->mlx_win, &x, &y);
+	speed = abs(x - SCREEN_WIDTH / 2) > 0 ? abs(x - SCREEN_WIDTH / 2) / 2 : 1;
 	if ((x > SCREEN_WIDTH / 2 && cub3d->mouse_set) || (cub3d->keyboard.right && !cub3d->keyboard.left))
 	{
- 		cub3d->player.dirX = cub3d->player.dirX * cos(CAMERA_SPEED) - cub3d->player.dirY * sin(CAMERA_SPEED);
- 		cub3d->player.dirY = oldDirX * sin(CAMERA_SPEED) + cub3d->player.dirY * cos(CAMERA_SPEED);
- 		cub3d->raycast.planeX = cub3d->raycast.planeX * cos(CAMERA_SPEED) - cub3d->raycast.planeY * sin(CAMERA_SPEED);
-		cub3d->raycast.planeY = oldPlaneX * sin(CAMERA_SPEED) + cub3d->raycast.planeY * cos(CAMERA_SPEED);
+ 		cub3d->player.dirX = cub3d->player.dirX * cos(CAMERA_SPEED * speed) - cub3d->player.dirY * sin(CAMERA_SPEED * speed);
+ 		cub3d->player.dirY = oldDirX * sin(CAMERA_SPEED * speed) + cub3d->player.dirY * cos(CAMERA_SPEED * speed);
+ 		cub3d->raycast.planeX = cub3d->raycast.planeX * cos(CAMERA_SPEED * speed) - cub3d->raycast.planeY * sin(CAMERA_SPEED * speed);
+		cub3d->raycast.planeY = oldPlaneX * sin(CAMERA_SPEED * speed) + cub3d->raycast.planeY * cos(CAMERA_SPEED * speed);
 	}
 	else if ((x < SCREEN_WIDTH / 2 && cub3d->mouse_set) || (cub3d->keyboard.left && !cub3d->keyboard.right))
 	{
- 		cub3d->player.dirX = cub3d->player.dirX * cos(-CAMERA_SPEED) - cub3d->player.dirY * sin(-CAMERA_SPEED);
- 		cub3d->player.dirY = oldDirX * sin(-CAMERA_SPEED) + cub3d->player.dirY * cos(-CAMERA_SPEED);
- 		cub3d->raycast.planeX = cub3d->raycast.planeX * cos(-CAMERA_SPEED) - cub3d->raycast.planeY * sin(-CAMERA_SPEED);
-		cub3d->raycast.planeY = oldPlaneX * sin(-CAMERA_SPEED) + cub3d->raycast.planeY * cos(-CAMERA_SPEED);
+ 		cub3d->player.dirX = cub3d->player.dirX * cos(-CAMERA_SPEED * speed) - cub3d->player.dirY * sin(-CAMERA_SPEED * speed);
+ 		cub3d->player.dirY = oldDirX * sin(-CAMERA_SPEED * speed) + cub3d->player.dirY * cos(-CAMERA_SPEED * speed);
+ 		cub3d->raycast.planeX = cub3d->raycast.planeX * cos(-CAMERA_SPEED * speed) - cub3d->raycast.planeY * sin(-CAMERA_SPEED * speed);
+		cub3d->raycast.planeY = oldPlaneX * sin(-CAMERA_SPEED * speed) + cub3d->raycast.planeY * cos(-CAMERA_SPEED * speed);
 	}
 }
 
