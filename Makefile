@@ -6,7 +6,7 @@
 #    By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 14:42:18 by cberganz          #+#    #+#              #
-#    Updated: 2022/05/29 18:55:22 by rbicanic         ###   ########.fr        #
+#    Updated: 2022/05/29 19:50:34 by rbicanic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ SRC_NAME		=	main.c			\
 					game.c			\
 					initialize.c	\
 					utils.c			\
-					parsing.c		\
 					exit.c			\
 					parsing/parsing_file_to_strs.c		\
 					parsing/parsing_file_get_textures.c	\

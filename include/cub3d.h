@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/29 19:45:03 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/05/29 19:51:01 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,13 +242,6 @@ void    raycast(t_cub3d *cub3d, t_raycast *raycast);
 
 void    put_minimap(t_cub3d *cub3d);
 void    put_overlay(t_cub3d *cub3d);
-
-/*
-** Parsing functions
-*/
-
-void    parsing(t_cub3d *cub3d);
-
 
 /*
 **	PARSING ROBIN

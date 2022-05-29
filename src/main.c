@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:18:21 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/29 19:23:46 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/05/29 19:50:03 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int main(int argc, char **argv, char **envp)
     
     global_parsing(&cub3d, argv[1]);
     window_initialize(&cub3d);
-    // parsing(&cub3d);
     img_initialize(&cub3d, &cub3d.minimap_img, MINIMAP_WIDTH, MINIMAP_HEIGHT);
     img_initialize(&cub3d, &cub3d.overlay_img, OVERLAY_WIDTH, OVERLAY_HEIGHT);
     img_initialize(&cub3d, &cub3d.raycast_img, SCREEN_WIDTH, SCREEN_WIDTH);
