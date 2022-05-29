@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/28 03:40:35 by charles          ###   ########.fr       */
+/*   Updated: 2022/05/29 04:51:21 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 ** Game settings
 */
 
-# define MOVE_PER_FRAME 0.02
-# define VISION_MOVE_PER_FRAME 0.01
+# define CAMERA_SPEED 0.01
+# define MOVE_SPEED 0.025
 
 /*
 ** Minimap settings
@@ -58,6 +58,16 @@
 # define OVERLAY_HEIGHT (SCREEN_HEIGHT - SCREEN_WIDTH)
 # define OVERLAY_WIDTH SCREEN_WIDTH
 # define OVERLAY_BACKGROUND_COLOR 0x3F7CAC
+# define LIFE_POS_X 100
+# define LIFE_POS_Y (SCREEN_WIDTH + 20)
+# define LIFE_COLOR 0xFFFFFF
+
+/*
+** Raycast settings
+*/
+
+# define SIDE1_COLOR 0x0000FF
+# define SIDE2_COLOR 0x00FF00
 
 /*
 ** Keyboard keys
@@ -72,6 +82,7 @@
 # define TOP 65362
 # define BOTTOM 65364
 # define ESC 65307
+# define CTRL 65507
 
 /*
 ** Game data structures
@@ -100,6 +111,38 @@ typedef struct s_colors
 	int			floor;
 }	t_colors;
 
+typedef struct s_player
+{
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	int		life;
+}	t_player;
+
+typedef struct s_raycast
+{
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+	double	planeX;
+	double	planeY;
+	int		mapX;
+	int		mapY;
+	double	sideDistX;
+	double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
+	int		stepX;
+	int		stepY;
+	int		hit;
+	int		side;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+}	t_raycast;
+
 typedef struct s_cub3d
 {
 	void		*mlx;
@@ -107,16 +150,14 @@ typedef struct s_cub3d
 	char		**map;
 	int			height;
 	int			width;
-	float		p_pos_x;
-	float		p_pos_y;
-	float		p_vector_x;
-	float		p_vector_y;
-	float		p_angle;
+	uint8_t		mouse_set;
     t_tex		minimap_img;
     t_tex		overlay_img;
-    t_tex		background_img;
+	t_tex		raycast_img;
 	t_colors	colors;
 	t_keyboard	keyboard;
+	t_raycast	raycast;
+	t_player	player;
 }	t_cub3d;
 
 /*
@@ -133,6 +174,8 @@ void    game_initialize(t_cub3d *cub3d);
 
 void    game_loop(t_cub3d *cub3d);
 void    mouse_rotation(t_cub3d *cub3d);
+void	set_mouse(t_cub3d *cub3d);
+void    raycast(t_cub3d *cub3d, t_raycast *raycast);
 
 /*
 ** Minimap and overlay functions
@@ -140,8 +183,6 @@ void    mouse_rotation(t_cub3d *cub3d);
 
 void    put_minimap(t_cub3d *cub3d);
 void    put_overlay(t_cub3d *cub3d);
-void    put_background(t_cub3d *cub3d);
-void	draw_background(t_cub3d *cub3d);
 
 /*
 ** Parsing functions

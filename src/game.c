@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:06:45 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/28 03:41:08 by charles          ###   ########.fr       */
+/*   Updated: 2022/05/29 04:58:58 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,45 @@
 
 static void	move_vision(t_cub3d *cub3d)
 {
-	if (cub3d->keyboard.right && !cub3d->keyboard.left)
-		cub3d->p_angle -= VISION_MOVE_PER_FRAME;
-	else if (cub3d->keyboard.left && !cub3d->keyboard.right)
-		cub3d->p_angle += VISION_MOVE_PER_FRAME;
-	if (cub3d->p_angle > 360)
-		cub3d->p_angle -= 360;
-	else if (cub3d->p_angle < 0)
-		cub3d->p_angle += 360;
+	double	oldDirX;
+ 	double	oldPlaneX;
+	int		x;
+	int		y;
+
+	oldDirX = cub3d->player.dirX;
+ 	oldPlaneX = cub3d->raycast.planeX;
+    mlx_mouse_get_pos(cub3d->mlx, cub3d->mlx_win, &x, &y);
+	if ((x > SCREEN_WIDTH / 2 && cub3d->mouse_set) || (cub3d->keyboard.right && !cub3d->keyboard.left))
+	{
+ 		cub3d->player.dirX = cub3d->player.dirX * cos(CAMERA_SPEED) - cub3d->player.dirY * sin(CAMERA_SPEED);
+ 		cub3d->player.dirY = oldDirX * sin(CAMERA_SPEED) + cub3d->player.dirY * cos(CAMERA_SPEED);
+ 		cub3d->raycast.planeX = cub3d->raycast.planeX * cos(CAMERA_SPEED) - cub3d->raycast.planeY * sin(CAMERA_SPEED);
+		cub3d->raycast.planeY = oldPlaneX * sin(CAMERA_SPEED) + cub3d->raycast.planeY * cos(CAMERA_SPEED);
+	}
+	else if ((x < SCREEN_WIDTH / 2 && cub3d->mouse_set) || (cub3d->keyboard.left && !cub3d->keyboard.right))
+	{
+ 		cub3d->player.dirX = cub3d->player.dirX * cos(-CAMERA_SPEED) - cub3d->player.dirY * sin(-CAMERA_SPEED);
+ 		cub3d->player.dirY = oldDirX * sin(-CAMERA_SPEED) + cub3d->player.dirY * cos(-CAMERA_SPEED);
+ 		cub3d->raycast.planeX = cub3d->raycast.planeX * cos(-CAMERA_SPEED) - cub3d->raycast.planeY * sin(-CAMERA_SPEED);
+		cub3d->raycast.planeY = oldPlaneX * sin(-CAMERA_SPEED) + cub3d->raycast.planeY * cos(-CAMERA_SPEED);
+	}
 }
 
 static void	move_player(t_cub3d *cub3d)
 {
-	cub3d->p_vector_x = 0;
-	cub3d->p_vector_y = 0;
 	if (cub3d->keyboard.top && !cub3d->keyboard.bottom)
 	{
-		cub3d->p_vector_x = MOVE_PER_FRAME * sinf(cub3d->p_angle);
-		cub3d->p_vector_y = MOVE_PER_FRAME * cosf(cub3d->p_angle);
+ 		if (cub3d->map[(int)(cub3d->player.posY + cub3d->player.dirY * MOVE_SPEED)][(int)cub3d->player.posX] == '0')
+ 			cub3d->player.posY += cub3d->player.dirY * MOVE_SPEED;
+ 		if (cub3d->map[(int)cub3d->player.posY][(int)(cub3d->player.posX + cub3d->player.dirX * MOVE_SPEED)] == '0')
+  		  	cub3d->player.posX += cub3d->player.dirX * MOVE_SPEED;
 	}
 	else if (cub3d->keyboard.bottom && !cub3d->keyboard.top)
 	{
-		cub3d->p_vector_x = -MOVE_PER_FRAME * sinf(cub3d->p_angle);
-		cub3d->p_vector_y = -MOVE_PER_FRAME * cosf(cub3d->p_angle);
-	}
- 	if (cub3d->map[(int)(cub3d->p_pos_y + cub3d->p_vector_y)][(int)(cub3d->p_pos_x + cub3d->p_vector_x)] == '0')
- 	{
- 		cub3d->p_pos_y += cub3d->p_vector_y;
-    	cub3d->p_pos_x += cub3d->p_vector_x;
+ 		if (cub3d->map[(int)(cub3d->player.posY - cub3d->player.dirY * MOVE_SPEED)][(int)cub3d->player.posX] == '0')
+ 			cub3d->player.posY -= cub3d->player.dirY * MOVE_SPEED;
+ 		if (cub3d->map[(int)cub3d->player.posY][(int)(cub3d->player.posX - cub3d->player.dirX * MOVE_SPEED)] == '0')
+  		  	cub3d->player.posX -= cub3d->player.dirX * MOVE_SPEED;
 	}
 }
 
@@ -55,6 +66,8 @@ int	key_press_hook(int key, t_cub3d *cub3d)
 		cub3d->keyboard.top = 1;
 	else if (key == S || key == BOTTOM)
 		cub3d->keyboard.bottom = 1;
+	else if (key == CTRL)
+		set_mouse(cub3d);
 	else if (key == ESC)
 		exit_game(cub3d, "Game exited by user.", EXIT_SUCCESS);
 	return (0);
@@ -75,11 +88,11 @@ int	key_release_hook(int key, t_cub3d *cub3d)
 
 int    loop(t_cub3d *cub3d)
 {
-	mouse_rotation(cub3d);
-    mlx_mouse_move(cub3d->mlx, cub3d->mlx_win, SCREEN_WIDTH / 2, SCREEN_WIDTH / 2);
 	move_vision(cub3d);
+	if (cub3d->mouse_set)
+ 		mlx_mouse_move(cub3d->mlx, cub3d->mlx_win, SCREEN_WIDTH / 2, SCREEN_WIDTH / 2);
 	move_player(cub3d);
-	put_background(cub3d);
+	raycast(cub3d, &cub3d->raycast);
     put_minimap(cub3d);
     put_overlay(cub3d);
     return (0);

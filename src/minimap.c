@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 22:15:12 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/28 02:58:02 by charles          ###   ########.fr       */
+/*   Updated: 2022/05/29 04:52:34 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ static void	put_pixel_to_img(t_tex *img, int x, int y, int color)
 	*(int *)(img->addr + ((x + y * MINIMAP_WIDTH) * img->bpp)) = color;
 }
 
-static int    get_color(t_cub3d *cub3d, int x, int y)
+static int    get_color(t_cub3d *cub3d, float x, float y)
 {
     if (x < 0 || x >= cub3d->width || y < 0 || y >= cub3d->height)
         return (MINIMAP_OUTMAP_COLOR);
-    if (cub3d->map[y][x] == '1')
+    if (cub3d->map[(int)y][(int)x] == '1')
         return (MINIMAP_WALL_COLOR);
-    else if (cub3d->map[y][x] == '0')
+    else if (cub3d->map[(int)y][(int)x] == '0')
         return (MINIMAP_FLOOR_COLOR);
     else
         return (MINIMAP_OUTMAP_COLOR);
@@ -40,9 +40,8 @@ static uint8_t is_on_vector_line(t_cub3d *cub3d, float x, float y)
 {
     float x_projection;
     float y_projection;
-
-	x_projection = MINIMAP_CENTER + DIRECTION_LINE_SIZE * sinf(cub3d->p_angle);
-	y_projection = MINIMAP_CENTER + DIRECTION_LINE_SIZE * cosf(cub3d->p_angle);
+	x_projection = MINIMAP_CENTER + cub3d->player.dirX * DIRECTION_LINE_SIZE;
+	y_projection = MINIMAP_CENTER + cub3d->player.dirY * DIRECTION_LINE_SIZE;
     return (get_distance(MINIMAP_CENTER, MINIMAP_CENTER, x, y) + get_distance(x_projection, y_projection, x, y) > get_distance(MINIMAP_CENTER, MINIMAP_CENTER, x_projection, y_projection) - DIRECTION_LINE_WIDTH
             && get_distance(MINIMAP_CENTER, MINIMAP_CENTER, x, y) + get_distance(x_projection, y_projection, x, y) < get_distance(MINIMAP_CENTER, MINIMAP_CENTER, x_projection, y_projection) + DIRECTION_LINE_WIDTH);
 }
@@ -67,11 +66,11 @@ static void	draw_minimap(t_cub3d *cub3d)
 	float y_map;
 
     y_pixel = 0;
-	y_map = cub3d->p_pos_y - SIZE_AROUND_PLAYER;
+	y_map = cub3d->player.posY - SIZE_AROUND_PLAYER;
 	while (y_pixel < MINIMAP_HEIGHT)
 	{
         x_pixel = 0;
-	    x_map = cub3d->p_pos_x - SIZE_AROUND_PLAYER;
+	    x_map = cub3d->player.posX - SIZE_AROUND_PLAYER;
 		while (x_pixel < MINIMAP_WIDTH)
 		{
             if (is_on_vector_line(cub3d, x_pixel, y_pixel) || is_on_center_square(x_pixel, y_pixel))

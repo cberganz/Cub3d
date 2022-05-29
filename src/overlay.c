@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 02:06:38 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/28 02:54:27 by charles          ###   ########.fr       */
+/*   Updated: 2022/05/29 04:53:03 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,15 @@ static void	draw_overlay(t_cub3d *cub3d)
 	}
 }
 
+void	display_infos(t_cub3d *cub3d)
+{
+	mlx_set_font(cub3d->mlx, cub3d->mlx_win, "-sony-*-*-*-*-*-*-230-75-75-*-120-iso8859-*");
+	mlx_string_put(cub3d->mlx, cub3d->mlx_win, LIFE_POS_X, LIFE_POS_Y, LIFE_COLOR, ft_strjoin(ft_itoa(cub3d->player.life, 0), "%", 0));
+}
+
 void    put_overlay(t_cub3d *cub3d)
 {
     draw_overlay(cub3d);
     overlay_display(cub3d);
+	display_infos(cub3d);
 }

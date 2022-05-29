@@ -6,7 +6,7 @@
 /*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:56:55 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/28 04:15:19 by charles          ###   ########.fr       */
+/*   Updated: 2022/05/29 03:09:38 by charles          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    exit_game(t_cub3d *cub3d, char *msg, int exit_status)
     mlx_destroy_window(cub3d->mlx, cub3d->mlx_win);
     mlx_destroy_image(cub3d->mlx, cub3d->minimap_img.img);
     mlx_destroy_image(cub3d->mlx, cub3d->overlay_img.img);
-    mlx_destroy_image(cub3d->mlx, cub3d->background_img.img);
+    mlx_destroy_image(cub3d->mlx, cub3d->raycast_img.img);
     mlx_destroy_display(cub3d->mlx);
     del_garbage(0);
     if (exit_status == 0)
