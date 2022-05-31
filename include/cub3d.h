@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/29 19:51:01 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/05/30 23:19:36 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@
 
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 900
-
+# define TEXT_WIDTH 64 
+# define TEXT_HEIGHT 64
 /*
 ** Game settings
 */
@@ -148,6 +149,16 @@ typedef struct s_player
 	int		life;
 }	t_player;
 
+typedef struct s_image {
+	void			*reference;
+	int				x;
+	int				y;
+	unsigned char	*pixels;
+	int				bits_per_pixel;
+	int				line_len;
+	int				endian;
+}				t_image;
+
 typedef struct s_raycast
 {
 	double	cameraX;
@@ -169,6 +180,9 @@ typedef struct s_raycast
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
+	int 	texNum;
+	int 	texX;
+	double 	wallX;
 }	t_raycast;
 
 // AJOUTE PAR ROBIN 
@@ -206,6 +220,7 @@ typedef struct s_cub3d
 	
 	char			**file_to_strs;
 	t_wall_textures wall_textures;
+	t_image			sprites[4];
 	t_map			map_struct;
 	
 	// AJOUTE PAR ROBIN 
@@ -252,6 +267,7 @@ bool	is_space_line(char *str);
 void	parse_map(t_cub3d *prog);
 void	global_parsing(t_cub3d *prog, char *file_name);
 void	find_player_data(t_map *map, t_player *player);
+void	init_sprites(t_cub3d *prgm);
 
 /*
 **	CHECK ERRORS ROBIN
