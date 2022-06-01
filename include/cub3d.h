@@ -33,7 +33,7 @@
 */
 
 # define SCREEN_WIDTH 800
-# define SCREEN_HEIGHT 900
+# define SCREEN_HEIGHT 800
 # define TEXT_WIDTH 64 
 # define TEXT_HEIGHT 64
 /*
@@ -42,6 +42,8 @@
 
 # define CAMERA_SPEED 0.01
 # define MOVE_SPEED 0.025
+# define ROTATION_ANGLE 1.5
+# define HITBOX_SIZE 0.2
 
 /*
 ** Minimap settings
@@ -111,7 +113,6 @@
 #define MALLOC_ERR_MSG "Malloc error"
 #define FD_ARG_ERR_MSG "Failed opening argument file"
 
-
 /*
 ** Game data structures
 */
@@ -131,6 +132,8 @@ typedef struct s_keyboard
 	uint8_t	right;
 	uint8_t	top;
 	uint8_t	bottom;
+	uint8_t	right_rotate;
+	uint8_t	left_rotate;
 }	t_keyboard;
 
 typedef struct s_colors
@@ -146,7 +149,6 @@ typedef struct s_player
 	double	posY;
 	double	dirX;
 	double	dirY;
-	int		life;
 }	t_player;
 
 typedef struct s_image {
