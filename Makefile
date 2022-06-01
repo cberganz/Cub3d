@@ -23,7 +23,6 @@ CFLAGS			= -Wall -Wextra -Werror -g
 
 SRC_NAME		=	main.c			\
 					minimap.c		\
-					overlay.c		\
 					raycast.c		\
 					mouse.c			\
 					game.c			\

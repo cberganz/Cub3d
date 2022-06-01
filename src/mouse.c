@@ -15,13 +15,7 @@
 void	set_mouse(t_cub3d *cub3d)
 {
 	if (cub3d->mouse_set)
-	{
-		mlx_mouse_show(cub3d->mlx, cub3d->mlx_win);
 		cub3d->mouse_set = 0;
-	}
 	else
-	{
-		mlx_mouse_hide(cub3d->mlx, cub3d->mlx_win);
 		cub3d->mouse_set = 1;
-	}
 }

@@ -25,7 +25,6 @@ void    exit_game(t_cub3d *cub3d, char *msg, int exit_status)
     i = 0;
     mlx_destroy_window(cub3d->mlx, cub3d->mlx_win);
     mlx_destroy_image(cub3d->mlx, cub3d->minimap_img.img);
-    mlx_destroy_image(cub3d->mlx, cub3d->overlay_img.img);
     mlx_destroy_image(cub3d->mlx, cub3d->raycast_img.img);
     while (i < 4)//peut etre check que les images existent avant de les destroy
     {
