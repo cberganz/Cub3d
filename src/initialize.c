@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: charles <charles@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:56:57 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/29 16:02:22 by charles          ###   ########.fr       */
+/*   Updated: 2022/06/01 17:53:56 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,29 @@ void    window_initialize(t_cub3d *cub3d)
     cub3d->mlx_win = mlx_new_window(cub3d->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Cub3d");
 }
 
+void    init_player_direction(t_cub3d *cub3d)
+{
+    double oldDirX;
+    double oldPlanX;
+    double angle;
+
+    if (cub3d->player.start_dir == 'N')
+        return ;
+    else if (cub3d->player.start_dir == 'W')
+        angle = (M_PI / 2) * -1;
+    else if (cub3d->player.start_dir == 'E')
+        angle = M_PI / 2;
+    else
+        angle = M_PI;
+    oldDirX = cub3d->player.dirX;
+    oldPlanX = cub3d->raycast.planeX;
+    cub3d->player.dirX = cub3d->player.dirX * cos(angle) - cub3d->player.dirY * sin(angle);
+    cub3d->player.dirY = oldDirX * sin(angle) + cub3d->player.dirY * cos(angle);
+    cub3d->raycast.planeX = cub3d->raycast.planeX * cos(angle) - cub3d->raycast.planeY * sin(angle);
+    cub3d->raycast.planeY = oldPlanX * sin(angle) + cub3d->raycast.planeY * cos(angle);
+    printf("%f,%f,%f,%f\n", cub3d->player.dirX, cub3d->player.dirY, cub3d->raycast.planeX, cub3d->raycast.planeY);
+}
+
 void    game_initialize(t_cub3d *cub3d)
 {
     cub3d->keyboard.right = 0;
@@ -40,5 +63,6 @@ void    game_initialize(t_cub3d *cub3d)
     cub3d->player.dirY = -1;
     cub3d->raycast.planeX = 0.66f;
     cub3d->raycast.planeY = 0;
+    init_player_direction(cub3d);
     mlx_mouse_hide(cub3d->mlx, cub3d->mlx_win);
 }
