@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:56:57 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/01 17:53:56 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:57:29 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void    init_player_direction(t_cub3d *cub3d)
     cub3d->player.dirY = oldDirX * sin(angle) + cub3d->player.dirY * cos(angle);
     cub3d->raycast.planeX = cub3d->raycast.planeX * cos(angle) - cub3d->raycast.planeY * sin(angle);
     cub3d->raycast.planeY = oldPlanX * sin(angle) + cub3d->raycast.planeY * cos(angle);
-    printf("%f,%f,%f,%f\n", cub3d->player.dirX, cub3d->player.dirY, cub3d->raycast.planeX, cub3d->raycast.planeY);
 }
 
 void    game_initialize(t_cub3d *cub3d)
