@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/01 17:27:52 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/02 17:45:52 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 ** Game settings
 */
 
-# define CAMERA_SPEED 0.01
-# define MOVE_SPEED 0.025
+# define CAMERA_SPEED 0.02
+# define MOVE_SPEED 0.05
 # define ROTATION_ANGLE 1.5
 # define HITBOX_SIZE 0.2
 

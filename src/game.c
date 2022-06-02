@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:06:45 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/31 14:29:27 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/02 17:56:25 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	move_vision(t_cub3d *cub3d)
  	double	oldPlaneX;
 	int		x;
 	int		y;
-	int		speed;
+	float	speed;
 
 	oldDirX = cub3d->player.dirX;
  	oldPlaneX = cub3d->raycast.planeX;
