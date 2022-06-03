@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/02 17:45:52 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/03 17:17:56 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,14 @@
 
 # define RED     "\x1b[31;1m"
 # define RESET   "\x1b[0m"
+
 /*
 ** Game screen settings
 */
+
+# ifndef BONUS_FLAG
+# define BONUS_FLAG 1
+# endif
 
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 800
@@ -72,6 +77,10 @@
 # define LIFE_POS_X 100
 # define LIFE_POS_Y (SCREEN_WIDTH + 20)
 # define LIFE_COLOR 0xFFFFFF
+# define TORCH_POS_X (SCREEN_WIDTH * 3 / 4 - 32)
+# define TORCH_POS_Y (SCREEN_HEIGHT  - 64)
+# define FIRE_POS_X (SCREEN_WIDTH * 3 / 4 - 12)
+# define FIRE_POS_Y (TORCH_POS_Y  - 55)
 
 /*
 ** Raycast settings
@@ -208,6 +217,13 @@ typedef struct	s_map
 	char				**map_strs;
 }				t_map;
 
+typedef struct	s_door
+{
+	int					increment_step;
+	unsigned int		x;
+	unsigned int		y;
+	unsigned int		step_percent;
+}				t_door;
 
 // AJOUTE PAR ROBIN 
 
@@ -222,8 +238,11 @@ typedef struct s_cub3d
 	
 	char			**file_to_strs;
 	t_wall_textures wall_textures;
-	t_image			sprites[4];
+	t_image			sprites[5];
+	t_image			torch_sprites[8];
 	t_map			map_struct;
+	int				doors_nbr;
+	t_door			*doors;
 	
 	// AJOUTE PAR ROBIN 
 	uint8_t		mouse_set;
@@ -269,7 +288,10 @@ bool	is_space_line(char *str);
 void	parse_map(t_cub3d *prog);
 void	global_parsing(t_cub3d *prog, char *file_name);
 void	find_player_data(t_map *map, t_player *player);
+t_image	ft_new_sprite(t_cub3d *prgm, char *path);
 void	init_sprites(t_cub3d *prgm);
+void	init_doors(t_cub3d *cub3d, t_map map);
+void	alloc_doors(t_cub3d *cub3d, t_map map);
 
 /*
 **	CHECK ERRORS ROBIN

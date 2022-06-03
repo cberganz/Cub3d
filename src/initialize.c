@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:56:57 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/01 17:57:29 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/03 14:13:00 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,21 @@ void    init_player_direction(t_cub3d *cub3d)
     cub3d->raycast.planeY = oldPlanX * sin(angle) + cub3d->raycast.planeY * cos(angle);
 }
 
+void    init_animation_sprites(t_cub3d *cub3d)
+{
+    int            i;
+    char    *sprite_paths[8] = {"sprites/torch/torch.xpm", "sprites/torch/fire1.xpm", "sprites/torch/fire2.xpm", "sprites/torch/fire3.xpm", "sprites/torch/fire4.xpm", "sprites/torch/fire5.xpm", "sprites/torch/fire6.xpm", "sprites/torch/fire7.xpm"};
+
+    i = 0;
+    while (i < 8)
+    {
+        if (!file_exist(sprite_paths[i]) || !is_valid_extension_path(sprite_paths[i], "xpm"))
+            exit_game(cub3d, FD_XPM_MSG, 1);
+        cub3d->torch_sprites[i] = ft_new_sprite(cub3d, sprite_paths[i]);
+        i++;
+    }
+}
+
 void    game_initialize(t_cub3d *cub3d)
 {
     cub3d->keyboard.right = 0;
@@ -64,4 +79,5 @@ void    game_initialize(t_cub3d *cub3d)
     cub3d->raycast.planeX = 0.66f;
     cub3d->raycast.planeY = 0;
     init_player_direction(cub3d);
+    init_animation_sprites(cub3d);
 }

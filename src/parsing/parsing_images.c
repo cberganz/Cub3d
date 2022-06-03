@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:27:17 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/05/30 23:22:22 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/03 16:48:55 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,8 @@ void	init_sprites(t_cub3d *prgm)
 		prgm->sprites[i] = ft_new_sprite(prgm, prgm->wall_textures.textures_paths[i]);
 		i++;
 	}
+	if (!file_exist("sprites/door.xpm"))
+		exit_game(prgm, FD_XPM_MSG, 1);
+	if (prgm->doors_nbr)//check flag
+		prgm->sprites[4] = ft_new_sprite(prgm, "sprites/door.xpm");
 }

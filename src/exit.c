@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:56:55 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/30 18:46:17 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/03 16:51:02 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ void    exit_game(t_cub3d *cub3d, char *msg, int exit_status)
     while (i < 4)//peut etre check que les images existent avant de les destroy
     {
         mlx_destroy_image(cub3d->mlx, cub3d->sprites[i].reference);
+        i++;
+    }
+    if (BONUS_FLAG && cub3d->doors_nbr)
+        mlx_destroy_image(cub3d->mlx, cub3d->sprites[4].reference);
+    i = 0;
+    while (i < 8)//peut etre check que les images existent avant de les destroy
+    {
+        mlx_destroy_image(cub3d->mlx, cub3d->torch_sprites[i].reference);
         i++;
     }
     mlx_destroy_display(cub3d->mlx);

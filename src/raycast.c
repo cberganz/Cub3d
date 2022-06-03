@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:01:42 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/31 14:32:46 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/03 18:31:34 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,15 @@ static void draw_line(t_cub3d *cub3d, int x)
             texY = (int)texPos & (cub3d->sprites[cub3d->raycast.texNum].y - 1);
             texPos += step;    
             pixel = &sprite.pixels[texY * sprite.line_len + cub3d->raycast.texX * (sprite.bits_per_pixel / 8)];
-            put_pixel_to_img(&cub3d->raycast_img, x, i, get_trgb(0, pixel[2], pixel[1], pixel[0]));
+            if (cub3d->raycast.texNum == 4 && cub3d->raycast.texX * (sprite.bits_per_pixel / 8) < sprite.line_len / 2) // changer 2 vers % correspondant
+                /* put_pixel_to_img(&cub3d->raycast_img, x, i, get_trgb(0, 255, 255, 255)) */;
+            else if (cub3d->raycast.texNum == 4)
+            {
+                pixel = &sprite.pixels[texY * sprite.line_len + (cub3d->raycast.texX * (sprite.bits_per_pixel / 8) + (sprite.line_len / 2))]; // changer 2 vers % correspondant
+                put_pixel_to_img(&cub3d->raycast_img, x, i, get_trgb(0, pixel[2], pixel[1], pixel[0]));
+            }
+            else
+                put_pixel_to_img(&cub3d->raycast_img, x, i, get_trgb(0, pixel[2], pixel[1], pixel[0]));
         }
         else
             put_pixel_to_img(&cub3d->raycast_img, x, i, cub3d->colors.floor);
@@ -81,7 +89,7 @@ void    raycast_initialize(t_cub3d *cub3d, t_raycast *raycast, int x)
     }
 }
 
-void    raycast_find_wall(t_cub3d *cub3d, t_raycast *raycast)
+void    raycast_find_wall(t_cub3d *cub3d, t_raycast *raycast, int do_hit_door)
 {
     while (raycast->hit == 0)
     {
@@ -97,7 +105,8 @@ void    raycast_find_wall(t_cub3d *cub3d, t_raycast *raycast)
           raycast->mapY += raycast->stepY;
           raycast->side = 1;
         }
-        if (cub3d->map_struct.map_strs[raycast->mapY][raycast->mapX] == '1') 
+        if (cub3d->map_struct.map_strs[raycast->mapY][raycast->mapX] == '1'
+            || (do_hit_door == -2 && cub3d->map_struct.map_strs[raycast->mapY][raycast->mapX] == 'D')) 
             raycast->hit = 1;
     }
     if (raycast->side == 0)
@@ -108,7 +117,9 @@ void    raycast_find_wall(t_cub3d *cub3d, t_raycast *raycast)
 
 void find_texture_index(t_cub3d *cub3d)
 {
-    if (cub3d->raycast.side == 1)
+    if (cub3d->map_struct.map_strs[cub3d->raycast.mapY][cub3d->raycast.mapX] == 'D')
+        cub3d->raycast.texNum = 4;
+    else if (cub3d->raycast.side == 1)
     {
         if (cub3d->raycast.rayDirY >= 0)
             cub3d->raycast.texNum = 0;
@@ -148,15 +159,73 @@ void    texture_calculation(t_cub3d *cub3d)
             - cub3d->raycast.texX - 1;
 }
 
+void    insert_torch(t_cub3d *cub3d/* , t_raycast *raycast */)
+{
+    int x;
+    int y;
+    unsigned char   *pixel;
+
+    y = 0;
+    while (y < cub3d->torch_sprites[0].y)
+    {
+        x = 0;
+        while (x < cub3d->torch_sprites[0].x)
+        {
+            pixel = &cub3d->torch_sprites[0].pixels[y * cub3d->torch_sprites[0].line_len + x * (cub3d->torch_sprites[0].bits_per_pixel / 8)];
+            if (pixel[2] != 0 && pixel[1] != 0 && pixel[0] != 0)
+                put_pixel_to_img(&cub3d->raycast_img, TORCH_POS_X + x, TORCH_POS_Y + y, get_trgb(0, pixel[2], pixel[1], pixel[0]));
+            x++;
+        }
+        y++;
+    }
+}
+
+void    insert_flame(t_cub3d *cub3d)
+{
+    int x;
+    int y;
+    static int      frame = 1;
+    unsigned char   *pixel;
+
+    y = 0;
+    pixel = NULL;
+    while (y < cub3d->torch_sprites[frame].y)
+    {
+        x = 0;
+        while (x < cub3d->torch_sprites[frame].x)
+        {
+            pixel = &cub3d->torch_sprites[frame].pixels[y * cub3d->torch_sprites[frame].line_len + x * (cub3d->torch_sprites[frame].bits_per_pixel / 8)];
+            if (pixel[2] != 0 && pixel[1] != 0 && pixel[0] != 0)
+                put_pixel_to_img(&cub3d->raycast_img, FIRE_POS_X + x, FIRE_POS_Y + y, get_trgb(0, pixel[2], pixel[1], pixel[0]));
+            x++;
+        }
+        y++;
+    }
+    frame++;
+    if (frame > 7)
+        frame = 1;
+}
+
 void    raycast(t_cub3d *cub3d, t_raycast *raycast)
 {
     int x;
+    int save_x;
 
     x = 0;
+    save_x = -1;
     while (x < SCREEN_WIDTH)
     {
         raycast_initialize(cub3d, raycast, x);
-        raycast_find_wall(cub3d, raycast);
+        raycast_find_wall(cub3d, raycast, save_x);
+        if (save_x == -1 && cub3d->map_struct.map_strs[raycast->mapY][raycast->mapX] == 'D')
+            save_x = x;
+        else if (save_x >= 0 && cub3d->map_struct.map_strs[raycast->mapY][raycast->mapX] != 'D')
+        {
+            x = save_x;
+            save_x = -2;
+        }
+        else if (save_x == -2 && cub3d->map_struct.map_strs[raycast->mapY][raycast->mapX] != 'D')
+            save_x = -1;
         raycast->lineHeight = (int)(SCREEN_HEIGHT / raycast->perpWallDist);
         raycast->drawStart = -raycast->lineHeight / 2 + SCREEN_HEIGHT / 2;
         if(raycast->drawStart < 0)
@@ -168,5 +237,8 @@ void    raycast(t_cub3d *cub3d, t_raycast *raycast)
         draw_line(cub3d, x);
         x++;
     }
+    insert_torch(cub3d);
+    insert_flame(cub3d);
+    put_minimap(cub3d);
 	mlx_put_image_to_window(cub3d->mlx, cub3d->mlx_win, cub3d->raycast_img.img, 0, 0);
 }

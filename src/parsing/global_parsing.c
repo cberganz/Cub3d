@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 16:56:01 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/05/30 18:51:36 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/03 16:52:56 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	global_parsing(t_cub3d *prog, char *file_name)
 	if (!is_valid_map(prog->map_struct))
 		error_message_and_exit(1, INCORECT_MAP_MSG);
 	find_player_data(&prog->map_struct, &prog->player);
+	alloc_doors(prog, prog->map_struct);
+	init_doors(prog, prog->map_struct);
 	del_garbage(LOOP);
 	prog->colors.sky = get_trgb(0, SKY_COLOR.octet[0], SKY_COLOR.octet[1], SKY_COLOR.octet[2]);//utiliser couleurs du fichier
     prog->colors.floor = get_trgb(0, FLOOR_COLOR.octet[0], FLOOR_COLOR.octet[1], FLOOR_COLOR.octet[2]);//utiliser couleurs du fichier

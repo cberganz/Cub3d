@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 21:44:44 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/05/29 20:05:45 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/03 16:30:47 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,21 @@ bool	ground_is_surronded_by_walls(t_map map)
 	{
 		while (map.map_strs[y][x])
 		{
-			if ((x == 0 && map.map_strs[y][x] == '0')
+			if ((x == 0 && map.map_strs[y][x] != '1' && map.map_strs[y][x] != ' ')
 				|| is_space_line(map.map_strs[y]))
 				return (false);
-			if ((map.map_strs[y][x] == '0' || map.map_strs[y][x] == 'N')// erreur ici pas que N
-				&& (map.map_strs[y][x + 1] == ' ' 
+			if ((map.map_strs[y][x] == '0' || map.map_strs[y][x] == 'N' || map.map_strs[y][x] == 'S'
+				|| map.map_strs[y][x] == 'E' || map.map_strs[y][x] == 'W' || map.map_strs[y][x] == 'D')
+				&& (map.map_strs[y][x + 1] == ' ' || map.map_strs[y][x + 1] == '\0'
 				|| map.map_strs[y][x - 1] == ' '
 				|| map.map_strs[y + 1][x] == ' '
 				|| map.map_strs[y - 1][x] == ' '))
+			{
+				printf("TEST\n");
 				return (false);
+			}
+			// if (map.map_strs[y][x] == 'D' && !(map.map_strs[y][x - 1] == '1' && map.map_strs[y][x - 1] == '1'))
+			// 	&&())
 			x++;
 		}
 		x = 0;
@@ -67,6 +73,8 @@ bool	map_charset_is_correct(t_map map)
 			if (map.map_strs[y][x] == 'N' || map.map_strs[y][x] == 'S'
 				|| map.map_strs[y][x] == 'E' || map.map_strs[y][x] == 'W')
 				player_charset_nbr++;
+			else if (BONUS_FLAG && map.map_strs[y][x] == 'D')
+				;
 			else if (map.map_strs[y][x] != '0' && map.map_strs[y][x] != '1'
 				&& map.map_strs[y][x] != ' ')
 				return (false);

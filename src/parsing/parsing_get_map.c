@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 20:24:50 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/05/29 18:20:04 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/03 16:01:20 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,53 @@ void	parse_map(t_cub3d *prog)
 	prog->map_struct.height = get_map_height(&prog->file_to_strs[i]);
 	prog->map_struct.width = get_map_length(&prog->file_to_strs[i], prog->map_struct);
 	map_to_strs(&prog->map_struct, &prog->file_to_strs[i]);
+}
+
+void	init_doors(t_cub3d *cub3d, t_map map)
+{
+	unsigned int	x;
+	unsigned int	y;
+	int				i;
+
+	y = 0;
+	i = 0;
+	while (map.map_strs[y])
+	{
+		x = 0;
+		while (map.map_strs[y][x])
+		{
+			if (map.map_strs[y][x] == 'D')
+			{
+				cub3d->doors[i].x = x;
+				cub3d->doors[i].y = y;
+				cub3d->doors[i].step_percent = 0;
+				cub3d->doors[i].increment_step = 0;
+				i++;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+void	alloc_doors(t_cub3d *cub3d, t_map map)
+{
+	unsigned int	x;
+	unsigned int	y;
+
+	cub3d->doors_nbr = 0;
+	y = 0;
+	while (map.map_strs[y])
+	{
+		x = 0;
+		while (map.map_strs[y][x])
+		{
+			if (map.map_strs[y][x] == 'D')
+				cub3d->doors_nbr++;
+			x++;
+		}
+		y++;
+	}
+	if (mem_alloc(cub3d->doors_nbr * sizeof(t_door), (void**)&cub3d->doors, MAIN))
+		exit_game(cub3d, MALLOC_ERR_MSG, 1);
 }

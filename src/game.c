@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:06:45 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/02 17:56:25 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/03 14:47:01 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ int    loop(t_cub3d *cub3d)
  		mlx_mouse_move(cub3d->mlx, cub3d->mlx_win, SCREEN_WIDTH / 2, SCREEN_WIDTH / 2);
 	move_player(cub3d);
 	raycast(cub3d, &cub3d->raycast);
-    put_minimap(cub3d);
     return (0);
 }
 

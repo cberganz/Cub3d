@@ -6,16 +6,16 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 22:15:12 by cberganz          #+#    #+#             */
-/*   Updated: 2022/05/31 14:26:09 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/03 15:07:14 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	minimap_display(t_cub3d *cub3d)
-{
-	mlx_put_image_to_window(cub3d->mlx, cub3d->mlx_win, cub3d->minimap_img.img, 0, 0);
-}
+//static void	minimap_display(t_cub3d *cub3d)
+//{
+//	mlx_put_image_to_window(cub3d->mlx, cub3d->mlx_win, cub3d->minimap_img.img, 0, 0);
+//}
 
 static void	put_pixel_to_img(t_tex *img, int x, int y, int color)
 {
@@ -74,9 +74,9 @@ static void	draw_minimap(t_cub3d *cub3d)
 		while (x_pixel < MINIMAP_WIDTH)
 		{
             if (is_on_vector_line(cub3d, x_pixel, y_pixel) || is_on_center_square(x_pixel, y_pixel))
-		        put_pixel_to_img(&cub3d->minimap_img, x_pixel, y_pixel, MINIMAP_PLAYER_COLOR);
+		        put_pixel_to_img(&cub3d->raycast_img, x_pixel, y_pixel, MINIMAP_PLAYER_COLOR);
             else
-		        put_pixel_to_img(&cub3d->minimap_img, x_pixel, y_pixel, get_color(cub3d, x_map, y_map));
+		        put_pixel_to_img(&cub3d->raycast_img, x_pixel, y_pixel, get_color(cub3d, x_map, y_map));
             x_map += 1.0f / PIXEL_PER_CUBE;
 			x_pixel++;
 		}
@@ -88,5 +88,5 @@ static void	draw_minimap(t_cub3d *cub3d)
 void    put_minimap(t_cub3d *cub3d)
 {
     draw_minimap(cub3d);
-    minimap_display(cub3d);
+    //minimap_display(cub3d);
 }
