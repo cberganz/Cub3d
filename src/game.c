@@ -6,12 +6,12 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:06:45 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/03 14:47:01 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/04 18:02:15 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
+#define PLAYER cub3d->player
 static void	move_vision(t_cub3d *cub3d)
 {
 	double	oldDirX;
@@ -20,21 +20,21 @@ static void	move_vision(t_cub3d *cub3d)
 	int		y;
 	float	speed;
 
-	oldDirX = cub3d->player.dirX;
+	oldDirX = PLAYER.dirX;
  	oldPlaneX = cub3d->raycast.planeX;
     mlx_mouse_get_pos(cub3d->mlx, cub3d->mlx_win, &x, &y);
 	speed = abs(x - SCREEN_WIDTH / 2) > 0 && cub3d->mouse_set ? abs(x - SCREEN_WIDTH / 2) / 2 : 1;
 	if ((x > SCREEN_WIDTH / 2 && cub3d->mouse_set) || (cub3d->keyboard.right_rotate && !cub3d->keyboard.left_rotate))
 	{
- 		cub3d->player.dirX = cub3d->player.dirX * cos(CAMERA_SPEED * speed) - cub3d->player.dirY * sin(CAMERA_SPEED * speed);
- 		cub3d->player.dirY = oldDirX * sin(CAMERA_SPEED * speed) + cub3d->player.dirY * cos(CAMERA_SPEED * speed);
+ 		PLAYER.dirX = PLAYER.dirX * cos(CAMERA_SPEED * speed) - PLAYER.dirY * sin(CAMERA_SPEED * speed);
+ 		PLAYER.dirY = oldDirX * sin(CAMERA_SPEED * speed) + PLAYER.dirY * cos(CAMERA_SPEED * speed);
  		cub3d->raycast.planeX = cub3d->raycast.planeX * cos(CAMERA_SPEED * speed) - cub3d->raycast.planeY * sin(CAMERA_SPEED * speed);
 		cub3d->raycast.planeY = oldPlaneX * sin(CAMERA_SPEED * speed) + cub3d->raycast.planeY * cos(CAMERA_SPEED * speed);
 	}
 	else if ((x < SCREEN_WIDTH / 2 && cub3d->mouse_set) || (cub3d->keyboard.left_rotate && !cub3d->keyboard.right_rotate))
 	{
- 		cub3d->player.dirX = cub3d->player.dirX * cos(-CAMERA_SPEED * speed) - cub3d->player.dirY * sin(-CAMERA_SPEED * speed);
- 		cub3d->player.dirY = oldDirX * sin(-CAMERA_SPEED * speed) + cub3d->player.dirY * cos(-CAMERA_SPEED * speed);
+ 		PLAYER.dirX = PLAYER.dirX * cos(-CAMERA_SPEED * speed) - PLAYER.dirY * sin(-CAMERA_SPEED * speed);
+ 		PLAYER.dirY = oldDirX * sin(-CAMERA_SPEED * speed) + PLAYER.dirY * cos(-CAMERA_SPEED * speed);
  		cub3d->raycast.planeX = cub3d->raycast.planeX * cos(-CAMERA_SPEED * speed) - cub3d->raycast.planeY * sin(-CAMERA_SPEED * speed);
 		cub3d->raycast.planeY = oldPlaneX * sin(-CAMERA_SPEED * speed) + cub3d->raycast.planeY * cos(-CAMERA_SPEED * speed);
 	}
@@ -53,34 +53,34 @@ static void	move_player(t_cub3d *cub3d)
 {
 	double	oldDirX;
 
-	oldDirX = cub3d->player.dirX;
+	oldDirX = PLAYER.dirX;
 	if (cub3d->keyboard.top && !cub3d->keyboard.bottom)
 	{
- 		if (hitbox_wallhit(cub3d, cub3d->player.posX, cub3d->player.posY + cub3d->player.dirY * MOVE_SPEED))
- 			cub3d->player.posY += cub3d->player.dirY * MOVE_SPEED;
- 		if (hitbox_wallhit(cub3d, cub3d->player.posX + cub3d->player.dirX * MOVE_SPEED, cub3d->player.posY))
-  		  	cub3d->player.posX += cub3d->player.dirX * MOVE_SPEED;
+ 		if (hitbox_wallhit(cub3d, PLAYER.posX, PLAYER.posY + PLAYER.dirY * MOVE_SPEED))
+ 			PLAYER.posY += PLAYER.dirY * MOVE_SPEED;
+ 		if (hitbox_wallhit(cub3d, PLAYER.posX + PLAYER.dirX * MOVE_SPEED, PLAYER.posY))
+  		  	PLAYER.posX += PLAYER.dirX * MOVE_SPEED;
 	}
 	else if (cub3d->keyboard.bottom && !cub3d->keyboard.top)
 	{
- 		if (hitbox_wallhit(cub3d, cub3d->player.posX, cub3d->player.posY - cub3d->player.dirY * MOVE_SPEED))
- 			cub3d->player.posY -= cub3d->player.dirY * MOVE_SPEED;
- 		if (hitbox_wallhit(cub3d, cub3d->player.posX - cub3d->player.dirX * MOVE_SPEED, cub3d->player.posY))
-  		  	cub3d->player.posX -= cub3d->player.dirX * MOVE_SPEED;
+ 		if (hitbox_wallhit(cub3d, PLAYER.posX, PLAYER.posY - PLAYER.dirY * MOVE_SPEED))
+ 			PLAYER.posY -= PLAYER.dirY * MOVE_SPEED;
+ 		if (hitbox_wallhit(cub3d, PLAYER.posX - PLAYER.dirX * MOVE_SPEED, PLAYER.posY))
+  		  	PLAYER.posX -= PLAYER.dirX * MOVE_SPEED;
 	}
 	if (cub3d->keyboard.right && !cub3d->keyboard.left)
 	{
-		if (hitbox_wallhit(cub3d, cub3d->player.posX + ((cub3d->player.dirX * cos(ROTATION_ANGLE) - cub3d->player.dirY * sin(ROTATION_ANGLE)) * MOVE_SPEED), cub3d->player.posY))
-			cub3d->player.posX += (cub3d->player.dirX * cos(ROTATION_ANGLE) - cub3d->player.dirY * sin(ROTATION_ANGLE)) * MOVE_SPEED;
-		if (hitbox_wallhit(cub3d, cub3d->player.posX, cub3d->player.posY + (oldDirX * sin(ROTATION_ANGLE) + cub3d->player.dirY * cos(ROTATION_ANGLE)) * MOVE_SPEED))
- 			cub3d->player.posY += (oldDirX * sin(ROTATION_ANGLE) + cub3d->player.dirY * cos(ROTATION_ANGLE)) * MOVE_SPEED;
+		if (hitbox_wallhit(cub3d, PLAYER.posX + ((PLAYER.dirX * cos(ROTATION_ANGLE) - PLAYER.dirY * sin(ROTATION_ANGLE)) * MOVE_SPEED), PLAYER.posY))
+			PLAYER.posX += (PLAYER.dirX * cos(ROTATION_ANGLE) - PLAYER.dirY * sin(ROTATION_ANGLE)) * MOVE_SPEED;
+		if (hitbox_wallhit(cub3d, PLAYER.posX, PLAYER.posY + (oldDirX * sin(ROTATION_ANGLE) + PLAYER.dirY * cos(ROTATION_ANGLE)) * MOVE_SPEED))
+ 			PLAYER.posY += (oldDirX * sin(ROTATION_ANGLE) + PLAYER.dirY * cos(ROTATION_ANGLE)) * MOVE_SPEED;
 	}
 	else if (cub3d->keyboard.left && !cub3d->keyboard.right)
 	{
-		if (hitbox_wallhit(cub3d, cub3d->player.posX + ((cub3d->player.dirX * cos(-ROTATION_ANGLE) - cub3d->player.dirY * sin(-ROTATION_ANGLE)) * MOVE_SPEED), cub3d->player.posY))
-			cub3d->player.posX += (cub3d->player.dirX * cos(-ROTATION_ANGLE) - cub3d->player.dirY * sin(-ROTATION_ANGLE)) * MOVE_SPEED;
-		if (hitbox_wallhit(cub3d, cub3d->player.posX, cub3d->player.posY + (oldDirX * sin(-ROTATION_ANGLE) + cub3d->player.dirY * cos(-ROTATION_ANGLE)) * MOVE_SPEED))
- 			cub3d->player.posY += (oldDirX * sin(-ROTATION_ANGLE) + cub3d->player.dirY * cos(-ROTATION_ANGLE)) * MOVE_SPEED;
+		if (hitbox_wallhit(cub3d, PLAYER.posX + ((PLAYER.dirX * cos(-ROTATION_ANGLE) - PLAYER.dirY * sin(-ROTATION_ANGLE)) * MOVE_SPEED), PLAYER.posY))
+			PLAYER.posX += (PLAYER.dirX * cos(-ROTATION_ANGLE) - PLAYER.dirY * sin(-ROTATION_ANGLE)) * MOVE_SPEED;
+		if (hitbox_wallhit(cub3d, PLAYER.posX, PLAYER.posY + (oldDirX * sin(-ROTATION_ANGLE) + PLAYER.dirY * cos(-ROTATION_ANGLE)) * MOVE_SPEED))
+ 			PLAYER.posY += (oldDirX * sin(-ROTATION_ANGLE) + PLAYER.dirY * cos(-ROTATION_ANGLE)) * MOVE_SPEED;
 	}
 }
 
@@ -105,8 +105,24 @@ int	key_press_hook(int key, t_cub3d *cub3d)
 	return (0);
 }
 
+t_door    *targeted_door(t_cub3d *cub3d)
+{
+    int i;
+
+    i = 0;
+    while (i < cub3d->doors_nbr)
+    {
+        if (PLAYER.dirX + PLAYER.posX > cub3d->doors[i].x && PLAYER.dirX + PLAYER.posX < cub3d->doors[i].x + 1
+			&& PLAYER.dirY + PLAYER.posY > cub3d->doors[i].y && PLAYER.dirY + PLAYER.posY < cub3d->doors[i].y + 1)
+            return (&cub3d->doors[i]);
+        i++;
+    }
+	return (NULL);
+}
+
 int	key_release_hook(int key, t_cub3d *cub3d)
 {
+	t_door	*door;
 	if (key == D)
 		cub3d->keyboard.right = 0;
 	else if (key == A)
@@ -119,8 +135,41 @@ int	key_release_hook(int key, t_cub3d *cub3d)
 		cub3d->keyboard.right_rotate = 0;
 	else if (key == LEFT)
 		cub3d->keyboard.left_rotate = 0;
+	else if (key == SPACE)
+	{
+		door = targeted_door(cub3d);
+		if (door)
+		{
+			if (door->step_percent == 0)
+			{
+				door->step_percent = 1;
+				door->increment_step = 1;
+			}
+			else if (door->step_percent == 100)
+			{
+				door->step_percent = 99;
+				door->increment_step = -1;
+			}
+		}
+	}
 	return (0);
 }
+
+void    update_door_loop(t_cub3d *cub3d)
+{
+    int i;
+
+    i = 0;
+    while (i < cub3d->doors_nbr)
+    {
+        if (cub3d->doors[i].step_percent > 0
+            && cub3d->doors[i].step_percent < 100)
+            cub3d->doors[i].step_percent += cub3d->doors[i].increment_step;
+        i++;
+    }
+}
+
+
 
 int    loop(t_cub3d *cub3d)
 {
@@ -128,6 +177,7 @@ int    loop(t_cub3d *cub3d)
 	if (cub3d->mouse_set)
  		mlx_mouse_move(cub3d->mlx, cub3d->mlx_win, SCREEN_WIDTH / 2, SCREEN_WIDTH / 2);
 	move_player(cub3d);
+	update_door_loop(cub3d);
 	raycast(cub3d, &cub3d->raycast);
     return (0);
 }

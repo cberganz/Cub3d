@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:01:42 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/04 16:15:00 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/04 18:15:20 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@ static void	put_pixel_to_img(t_tex *img, int x, int y, int color)
 	*(int *)(img->addr + ((x + y * SCREEN_WIDTH) * img->bpp)) = color;
 }
 
+float   get_open_percentage(t_cub3d *cub3d)
+{
+    int i;
+
+    i = 0;
+    while (i < cub3d->doors_nbr)
+    {
+        if ((int)cub3d->doors[i].x == cub3d->raycast.mapX && (int)cub3d->doors[i].y == cub3d->raycast.mapY)
+            return ((float)cub3d->doors[i].step_percent / 100);
+        i++;
+    }
+    return (-1.0f);    
+}
 static int draw_line(t_cub3d *cub3d, int x)
 {
     unsigned char   *pixel;
@@ -43,11 +56,11 @@ static int draw_line(t_cub3d *cub3d, int x)
             texY = (int)texPos & (cub3d->sprites[cub3d->raycast.texNum].y - 1);
             texPos += step;    
             pixel = &sprite.pixels[texY * sprite.line_len + cub3d->raycast.texX * (sprite.bits_per_pixel / 8)];
-            if (cub3d->raycast.texNum == 4 && cub3d->raycast.texX * (sprite.bits_per_pixel / 8) < sprite.line_len / 2) // changer 2 vers % correspondant
+            if (cub3d->raycast.texNum == 4 && cub3d->raycast.texX * (sprite.bits_per_pixel / 8) < sprite.line_len * get_open_percentage(cub3d))
                 reached_door_end = 1;
             else if (cub3d->raycast.texNum == 4)
             {
-                pixel = &sprite.pixels[texY * sprite.line_len + (cub3d->raycast.texX * (sprite.bits_per_pixel / 8) + (sprite.line_len / 2))]; // changer 2 vers % correspondant
+                pixel = &sprite.pixels[(int)(texY * sprite.line_len + cub3d->raycast.texX * (sprite.bits_per_pixel / 8) + sprite.line_len * (1 - get_open_percentage(cub3d)) - ((int)(sprite.line_len * (1 - get_open_percentage(cub3d))) % (sprite.bits_per_pixel / 8)))];
                 put_pixel_to_img(&cub3d->raycast_img, x, i, get_trgb(0, pixel[2], pixel[1], pixel[0]));
             }
             else
