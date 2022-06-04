@@ -3,25 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 22:15:12 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/03 15:07:14 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/04 16:15:57 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-//static void	minimap_display(t_cub3d *cub3d)
-//{
-//	mlx_put_image_to_window(cub3d->mlx, cub3d->mlx_win, cub3d->minimap_img.img, 0, 0);
-//}
-
 static void	put_pixel_to_img(t_tex *img, int x, int y, int color)
 {
-	if (x < 0 || x >= MINIMAP_WIDTH || y < 0 || y >= MINIMAP_HEIGHT)
+	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
 		return ;
-	*(int *)(img->addr + ((x + y * MINIMAP_WIDTH) * img->bpp)) = color;
+	*(int *)(img->addr + ((x + y * SCREEN_WIDTH) * img->bpp)) = color;
 }
 
 static int    get_color(t_cub3d *cub3d, float x, float y)
@@ -58,7 +53,7 @@ static uint8_t is_on_center_square(int x, int y)
     return (x >= square_begin_x && x < square_begin_x + square_size && y >= square_begin_y && y < square_begin_y + square_size);
 }
 
-static void	draw_minimap(t_cub3d *cub3d)
+void	draw_minimap(t_cub3d *cub3d)
 {
 	int x_pixel;
 	int y_pixel;
@@ -83,10 +78,4 @@ static void	draw_minimap(t_cub3d *cub3d)
         y_map += 1.0f / PIXEL_PER_CUBE;
 		y_pixel++;
 	}
-}
-
-void    put_minimap(t_cub3d *cub3d)
-{
-    draw_minimap(cub3d);
-    //minimap_display(cub3d);
 }

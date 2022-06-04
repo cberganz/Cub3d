@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:01:42 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/03 18:31:34 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/04 16:00:04 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void    texture_calculation(t_cub3d *cub3d)
             - cub3d->raycast.texX - 1;
 }
 
-void    insert_torch(t_cub3d *cub3d/* , t_raycast *raycast */)
+void    insert_torch(t_cub3d *cub3d)
 {
     int x;
     int y;
@@ -184,17 +184,17 @@ void    insert_flame(t_cub3d *cub3d)
 {
     int x;
     int y;
-    static int      frame = 1;
+    static int      frame = 10;
     unsigned char   *pixel;
 
     y = 0;
     pixel = NULL;
-    while (y < cub3d->torch_sprites[frame].y)
+    while (y < cub3d->torch_sprites[frame / 10].y)
     {
         x = 0;
-        while (x < cub3d->torch_sprites[frame].x)
+        while (x < cub3d->torch_sprites[frame / 10].x)
         {
-            pixel = &cub3d->torch_sprites[frame].pixels[y * cub3d->torch_sprites[frame].line_len + x * (cub3d->torch_sprites[frame].bits_per_pixel / 8)];
+            pixel = &cub3d->torch_sprites[frame / 10].pixels[y * cub3d->torch_sprites[frame / 10].line_len + x * (cub3d->torch_sprites[frame / 10].bits_per_pixel / 8)];
             if (pixel[2] != 0 && pixel[1] != 0 && pixel[0] != 0)
                 put_pixel_to_img(&cub3d->raycast_img, FIRE_POS_X + x, FIRE_POS_Y + y, get_trgb(0, pixel[2], pixel[1], pixel[0]));
             x++;
@@ -202,8 +202,8 @@ void    insert_flame(t_cub3d *cub3d)
         y++;
     }
     frame++;
-    if (frame > 7)
-        frame = 1;
+    if (frame > 70)
+        frame = 10;
 }
 
 void    raycast(t_cub3d *cub3d, t_raycast *raycast)
@@ -237,8 +237,8 @@ void    raycast(t_cub3d *cub3d, t_raycast *raycast)
         draw_line(cub3d, x);
         x++;
     }
+    draw_minimap(cub3d);
     insert_torch(cub3d);
     insert_flame(cub3d);
-    put_minimap(cub3d);
 	mlx_put_image_to_window(cub3d->mlx, cub3d->mlx_win, cub3d->raycast_img.img, 0, 0);
 }
