@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 21:44:44 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/06/04 19:35:03 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:46:59 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,11 @@ bool	ground_is_surronded_by_walls(t_map map)
 				|| map.map_strs[y][x - 1] == ' '
 				|| map.map_strs[y + 1][x] == ' '
 				|| map.map_strs[y - 1][x] == ' '))
-			{
-				printf("TEST\n");
 				return (false);
-			}
-			// if (POS_CHAR == 'D' && ((map.map_strs[y][x - 1] == '1' && map.map_strs[y][x - 1] == '1' && map.map_strs[y - 1][x] == '0' && map.map_strs[y + 1][x] == '0')
-			// 	|| (map.map_strs[y][x - 1] == '0' && map.map_strs[y][x - 1] == '0' && map.map_strs[y - 1][x] == '1' && map.map_strs[y + 1][x] == '1')))
-			// 	return (false);
+			if (POS_CHAR == 'D'
+				&& !((map.map_strs[y][x + 1] == '1' && map.map_strs[y][x - 1] == '1' && map.map_strs[y - 1][x] == '0' && map.map_strs[y + 1][x] == '0')
+				|| (map.map_strs[y][x + 1] == '0' && map.map_strs[y][x - 1] == '0' && map.map_strs[y - 1][x] == '1' && map.map_strs[y + 1][x] == '1')))
+				return (false);
 			x++;
 		}
 		x = 0;

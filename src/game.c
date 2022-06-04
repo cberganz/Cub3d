@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:06:45 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/04 19:37:20 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:52:06 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ int    loop(t_cub3d *cub3d)
 {
 	move_vision(cub3d);
 	if (cub3d->mouse_set)
- 		mlx_mouse_move(cub3d->mlx, cub3d->mlx_win, SCREEN_WIDTH / 2, SCREEN_WIDTH / 2);
+ 		mlx_mouse_move(cub3d->mlx, cub3d->mlx_win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	move_player(cub3d);
 	update_door_loop(cub3d);
 	raycast(cub3d, &cub3d->raycast);
