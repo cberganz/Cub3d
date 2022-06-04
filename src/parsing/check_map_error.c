@@ -6,11 +6,12 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 21:44:44 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/06/03 16:30:47 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:35:03 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#define POS_CHAR map.map_strs[y][x]
 
 bool	extrem_lines_are_correct(char *line)
 {
@@ -32,13 +33,13 @@ bool	ground_is_surronded_by_walls(t_map map)
 	y = 1;
 	while (map.map_strs[y] && y < map.height - 1)
 	{
-		while (map.map_strs[y][x])
+		while (POS_CHAR)
 		{
-			if ((x == 0 && map.map_strs[y][x] != '1' && map.map_strs[y][x] != ' ')
+			if ((x == 0 && POS_CHAR != '1' && POS_CHAR != ' ')
 				|| is_space_line(map.map_strs[y]))
 				return (false);
-			if ((map.map_strs[y][x] == '0' || map.map_strs[y][x] == 'N' || map.map_strs[y][x] == 'S'
-				|| map.map_strs[y][x] == 'E' || map.map_strs[y][x] == 'W' || map.map_strs[y][x] == 'D')
+			if ((POS_CHAR == '0' || POS_CHAR == 'N' || POS_CHAR == 'S'
+				|| POS_CHAR == 'E' || POS_CHAR == 'W' || POS_CHAR == 'D')
 				&& (map.map_strs[y][x + 1] == ' ' || map.map_strs[y][x + 1] == '\0'
 				|| map.map_strs[y][x - 1] == ' '
 				|| map.map_strs[y + 1][x] == ' '
@@ -47,8 +48,9 @@ bool	ground_is_surronded_by_walls(t_map map)
 				printf("TEST\n");
 				return (false);
 			}
-			// if (map.map_strs[y][x] == 'D' && !(map.map_strs[y][x - 1] == '1' && map.map_strs[y][x - 1] == '1'))
-			// 	&&())
+			// if (POS_CHAR == 'D' && ((map.map_strs[y][x - 1] == '1' && map.map_strs[y][x - 1] == '1' && map.map_strs[y - 1][x] == '0' && map.map_strs[y + 1][x] == '0')
+			// 	|| (map.map_strs[y][x - 1] == '0' && map.map_strs[y][x - 1] == '0' && map.map_strs[y - 1][x] == '1' && map.map_strs[y + 1][x] == '1')))
+			// 	return (false);
 			x++;
 		}
 		x = 0;
@@ -68,15 +70,15 @@ bool	map_charset_is_correct(t_map map)
 	y = 0;
 	while (map.map_strs[y])
 	{
-		while (map.map_strs[y][x])
+		while (POS_CHAR)
 		{
-			if (map.map_strs[y][x] == 'N' || map.map_strs[y][x] == 'S'
-				|| map.map_strs[y][x] == 'E' || map.map_strs[y][x] == 'W')
+			if (POS_CHAR == 'N' || POS_CHAR == 'S'
+				|| POS_CHAR == 'E' || POS_CHAR == 'W')
 				player_charset_nbr++;
-			else if (BONUS_FLAG && map.map_strs[y][x] == 'D')
+			else if (BONUS_FLAG && POS_CHAR == 'D')
 				;
-			else if (map.map_strs[y][x] != '0' && map.map_strs[y][x] != '1'
-				&& map.map_strs[y][x] != ' ')
+			else if (POS_CHAR != '0' && POS_CHAR != '1'
+				&& POS_CHAR != ' ')
 				return (false);
 			x++;
 		}

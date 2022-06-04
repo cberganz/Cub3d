@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:06:45 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/04 18:02:15 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:29:27 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ int	key_release_hook(int key, t_cub3d *cub3d)
 			{
 				door->step_percent = 99;
 				door->increment_step = -1;
+				cub3d->map_struct.map_strs[door->y][door->x] = 'D';
 			}
 		}
 	}
@@ -165,11 +166,12 @@ void    update_door_loop(t_cub3d *cub3d)
         if (cub3d->doors[i].step_percent > 0
             && cub3d->doors[i].step_percent < 100)
             cub3d->doors[i].step_percent += cub3d->doors[i].increment_step;
+		else if (cub3d->doors[i].step_percent == 100
+			&& cub3d->map_struct.map_strs[cub3d->doors[i].y][cub3d->doors[i].x] == 'D')
+			cub3d->map_struct.map_strs[cub3d->doors[i].y][cub3d->doors[i].x] = '0';
         i++;
     }
 }
-
-
 
 int    loop(t_cub3d *cub3d)
 {
