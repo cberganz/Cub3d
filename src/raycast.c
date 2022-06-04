@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:01:42 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/03 18:31:34 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/04 16:15:00 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,17 @@ static void	put_pixel_to_img(t_tex *img, int x, int y, int color)
 	*(int *)(img->addr + ((x + y * SCREEN_WIDTH) * img->bpp)) = color;
 }
 
-static void draw_line(t_cub3d *cub3d, int x)
+static int draw_line(t_cub3d *cub3d, int x)
 {
     unsigned char   *pixel;
     int             i;
     int             texY;
     double          step;
     double          texPos;
+    int             reached_door_end;
     t_image         sprite;
 
+    reached_door_end = 0;
     sprite = cub3d->sprites[cub3d->raycast.texNum];
     step = 1.0 * cub3d->sprites[cub3d->raycast.texNum].y / cub3d->raycast.lineHeight;
     texPos = (cub3d->raycast.drawStart - SCREEN_HEIGHT / 2 + cub3d->raycast.lineHeight / 2) * step;
@@ -42,7 +44,7 @@ static void draw_line(t_cub3d *cub3d, int x)
             texPos += step;    
             pixel = &sprite.pixels[texY * sprite.line_len + cub3d->raycast.texX * (sprite.bits_per_pixel / 8)];
             if (cub3d->raycast.texNum == 4 && cub3d->raycast.texX * (sprite.bits_per_pixel / 8) < sprite.line_len / 2) // changer 2 vers % correspondant
-                /* put_pixel_to_img(&cub3d->raycast_img, x, i, get_trgb(0, 255, 255, 255)) */;
+                reached_door_end = 1;
             else if (cub3d->raycast.texNum == 4)
             {
                 pixel = &sprite.pixels[texY * sprite.line_len + (cub3d->raycast.texX * (sprite.bits_per_pixel / 8) + (sprite.line_len / 2))]; // changer 2 vers % correspondant
@@ -55,6 +57,7 @@ static void draw_line(t_cub3d *cub3d, int x)
             put_pixel_to_img(&cub3d->raycast_img, x, i, cub3d->colors.floor);
         i++;
     }
+    return (reached_door_end);
 }
 
 void    raycast_initialize(t_cub3d *cub3d, t_raycast *raycast, int x)
@@ -106,7 +109,7 @@ void    raycast_find_wall(t_cub3d *cub3d, t_raycast *raycast, int do_hit_door)
           raycast->side = 1;
         }
         if (cub3d->map_struct.map_strs[raycast->mapY][raycast->mapX] == '1'
-            || (do_hit_door == -2 && cub3d->map_struct.map_strs[raycast->mapY][raycast->mapX] == 'D')) 
+            || (do_hit_door == 1 && cub3d->map_struct.map_strs[raycast->mapY][raycast->mapX] == 'D')) 
             raycast->hit = 1;
     }
     if (raycast->side == 0)
@@ -209,23 +212,14 @@ void    insert_flame(t_cub3d *cub3d)
 void    raycast(t_cub3d *cub3d, t_raycast *raycast)
 {
     int x;
-    int save_x;
+    int hit_door;
 
     x = 0;
-    save_x = -1;
+    hit_door = 1;
     while (x < SCREEN_WIDTH)
     {
         raycast_initialize(cub3d, raycast, x);
-        raycast_find_wall(cub3d, raycast, save_x);
-        if (save_x == -1 && cub3d->map_struct.map_strs[raycast->mapY][raycast->mapX] == 'D')
-            save_x = x;
-        else if (save_x >= 0 && cub3d->map_struct.map_strs[raycast->mapY][raycast->mapX] != 'D')
-        {
-            x = save_x;
-            save_x = -2;
-        }
-        else if (save_x == -2 && cub3d->map_struct.map_strs[raycast->mapY][raycast->mapX] != 'D')
-            save_x = -1;
+        raycast_find_wall(cub3d, raycast, hit_door);
         raycast->lineHeight = (int)(SCREEN_HEIGHT / raycast->perpWallDist);
         raycast->drawStart = -raycast->lineHeight / 2 + SCREEN_HEIGHT / 2;
         if(raycast->drawStart < 0)
@@ -234,7 +228,8 @@ void    raycast(t_cub3d *cub3d, t_raycast *raycast)
         if(raycast->drawEnd >= SCREEN_HEIGHT)
             raycast->drawEnd = SCREEN_HEIGHT - 1;
         texture_calculation(cub3d);
-        draw_line(cub3d, x);
+        if (draw_line(cub3d, x))
+            hit_door = 0;
         x++;
     }
     insert_torch(cub3d);
