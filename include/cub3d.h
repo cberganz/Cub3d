@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/04 19:52:42 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/04 20:08:03 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@
 # define LIFE_POS_Y (SCREEN_WIDTH + 20)
 # define LIFE_COLOR 0xFFFFFF
 # define TORCH_POS_X (SCREEN_WIDTH * 3 / 4 - 32)
-# define TORCH_POS_Y (SCREEN_HEIGHT  - 64)
+# define TORCH_POS_Y (SCREEN_HEIGHT  - 128)
 # define FIRE_POS_X (SCREEN_WIDTH * 3 / 4 - 12)
 # define FIRE_POS_Y (TORCH_POS_Y  - 55)
 
