@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/04 15:59:34 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/04 18:19:36 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@
 # define BOTTOM 65364
 # define ESC 65307
 # define CTRL 65507
+# define SPACE 32
 
 /*
 ** Garbage Collector
@@ -271,6 +272,7 @@ void    game_loop(t_cub3d *cub3d);
 void    mouse_rotation(t_cub3d *cub3d);
 void	set_mouse(t_cub3d *cub3d);
 void    raycast(t_cub3d *cub3d, t_raycast *raycast);
+t_door  *targeted_door(t_cub3d *cub3d);
 
 /*
 ** Minimap and overlay functions
