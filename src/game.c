@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:06:45 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/04 18:02:15 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/04 19:32:33 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ static void	move_vision(t_cub3d *cub3d)
 }
 
 static uint8_t	hitbox_wallhit(t_cub3d *cub3d, double x, double y)
-{
-	
+{	
 	return (cub3d->map_struct.map_strs[(int)y][(int)(x + HITBOX_SIZE)] == '0'
 			&& cub3d->map_struct.map_strs[(int)y][(int)(x - HITBOX_SIZE)] == '0'
 			&& cub3d->map_struct.map_strs[(int)(y + HITBOX_SIZE)][(int)x] == '0'
@@ -120,6 +119,14 @@ t_door    *targeted_door(t_cub3d *cub3d)
 	return (NULL);
 }
 
+static uint8_t	is_player_on_door(t_cub3d *cub3d, t_door *targeted_door)
+{
+	return (((int)targeted_door->x == (int)(cub3d->player.posX + HITBOX_SIZE) && (int)targeted_door->y == (int)cub3d->player.posY)
+			|| ((int)targeted_door->x == (int)(cub3d->player.posX - HITBOX_SIZE) && (int)targeted_door->y == (int)cub3d->player.posY)
+			|| ((int)targeted_door->x == (int)cub3d->player.posX && (int)targeted_door->y == (int)(cub3d->player.posY + HITBOX_SIZE))
+			|| ((int)targeted_door->x == (int)cub3d->player.posX && (int)targeted_door->y == (int)(cub3d->player.posY - HITBOX_SIZE)));
+}
+
 int	key_release_hook(int key, t_cub3d *cub3d)
 {
 	t_door	*door;
@@ -140,12 +147,12 @@ int	key_release_hook(int key, t_cub3d *cub3d)
 		door = targeted_door(cub3d);
 		if (door)
 		{
-			if (door->step_percent == 0)
+			if (door->step_percent == 0 && !is_player_on_door(cub3d, door))
 			{
 				door->step_percent = 1;
 				door->increment_step = 1;
 			}
-			else if (door->step_percent == 100)
+			else if (door->step_percent == 100 && !is_player_on_door(cub3d, door))
 			{
 				door->step_percent = 99;
 				door->increment_step = -1;
