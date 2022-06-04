@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/03 17:17:56 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/04 15:59:34 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,8 +276,7 @@ void    raycast(t_cub3d *cub3d, t_raycast *raycast);
 ** Minimap and overlay functions
 */
 
-void    put_minimap(t_cub3d *cub3d);
-void    put_overlay(t_cub3d *cub3d);
+void    draw_minimap(t_cub3d *cub3d);
 
 /*
 **	PARSING ROBIN
