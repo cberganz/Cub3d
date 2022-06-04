@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 00:01:42 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/04 18:20:00 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/04 22:58:42 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ void    insert_torch(t_cub3d *cub3d)
         while (x < cub3d->torch_sprites[0].x)
         {
             pixel = &cub3d->torch_sprites[0].pixels[y * cub3d->torch_sprites[0].line_len + x * (cub3d->torch_sprites[0].bits_per_pixel / 8)];
-            if (pixel[2] != 0 && pixel[1] != 0 && pixel[0] != 0)
+            if (pixel[2] != 42 && pixel[1] != 255 && pixel[0] != 2)
                 put_pixel_to_img(&cub3d->raycast_img, TORCH_POS_X + x, TORCH_POS_Y + y, get_trgb(0, pixel[2], pixel[1], pixel[0]));
             x++;
         }

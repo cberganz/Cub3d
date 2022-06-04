@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:56:57 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/03 14:13:00 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/04 22:50:14 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void    init_player_direction(t_cub3d *cub3d)
 void    init_animation_sprites(t_cub3d *cub3d)
 {
     int            i;
-    char    *sprite_paths[8] = {"sprites/torch/torch.xpm", "sprites/torch/fire1.xpm", "sprites/torch/fire2.xpm", "sprites/torch/fire3.xpm", "sprites/torch/fire4.xpm", "sprites/torch/fire5.xpm", "sprites/torch/fire6.xpm", "sprites/torch/fire7.xpm"};
+    char    *sprite_paths[8] = {"sprites/torch/hand_torch.xpm", "sprites/torch/fire1.xpm", "sprites/torch/fire2.xpm", "sprites/torch/fire3.xpm", "sprites/torch/fire4.xpm", "sprites/torch/fire5.xpm", "sprites/torch/fire6.xpm", "sprites/torch/fire7.xpm"};
 
     i = 0;
     while (i < 8)
