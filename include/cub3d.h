@@ -6,7 +6,7 @@
 /*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 16:32:05 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 16:58:25 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@
 /*
 ** Game screen settings
 */
-
-# ifndef BONUS_FLAG
-# define BONUS_FLAG 1
-# endif
 
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 800

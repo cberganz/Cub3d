@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+         #
+#    By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 14:42:18 by cberganz          #+#    #+#              #
-#    Updated: 2022/05/30 18:53:56 by rbicanic         ###   ########.fr        #
+#    Updated: 2022/06/05 16:55:43 by cberganz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ HEADER			= ${INCLUDE}cub3d.h
 CC				= clang
 
 CFLAGS			= -Wall -Wextra -Werror -g
+
+FLAG			= 0
 
 SRC_NAME		=	main.c			\
 					minimap.c		\
@@ -54,9 +56,15 @@ all: ${NAME}
 $(NAME): $(OBJ)
 	@make -sC ./libft/
 	@make -sC ./mlx-linux/
-	$(CC) $(CFLAGS) -L./libft ${OBJ} -lft -Lmlx-linux -lmlx_Linux -L/usr/lib -Ilibmlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(CFLAGS) -D BONUS_FLAG=0 -L./libft ${OBJ} -lft -Lmlx-linux -lmlx_Linux -L/usr/lib -Ilibmlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
-bonus: $(NAME_BONUS)
+bonus: bonus_flag $(OBJ)
+	@make -sC ./libft/
+	@make -sC ./mlx-linux/
+	$(CC) $(CFLAGS) -D BONUS_FLAG=1 -L./libft ${OBJ} -lft -Lmlx-linux -lmlx_Linux -L/usr/lib -Ilibmlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+
+bonus_flag: 
+	$(eval FLAG=1)
 
 ${OBJ_DIRS}:
 	mkdir -p $@
@@ -64,7 +72,7 @@ ${OBJ_DIRS}:
 ${OBJ}: | ${OBJ_DIRS}
 
 ${OBJ_DIR}%.o: ${SRC_DIR}%.c ${HEADER}
-	${CC} ${CFLAGS} -I${INCLUDE} -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	${CC} ${CFLAGS} -D BONUS_FLAG=$(FLAG) -I${INCLUDE} -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 clean:
 	@make clean -sC ./libft/

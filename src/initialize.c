@@ -6,7 +6,7 @@
 /*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:56:57 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 16:15:22 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 16:39:23 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ void    game_initialize(t_cub3d *cub3d)
     cub3d->keyboard.bottom = 0;
     cub3d->keyboard.right_rotate = 0;
     cub3d->keyboard.left_rotate = 0;
-    cub3d->mouse_set = 1;
+    if (BONUS_FLAG)
+        cub3d->mouse_set = 1;
+    else
+        cub3d->mouse_set = 0;
     cub3d->player.dirX = 0;
     cub3d->player.dirY = -1;
     cub3d->raycast.planeX = 0.66f;

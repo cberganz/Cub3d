@@ -6,12 +6,14 @@
 /*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:06:45 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 16:23:04 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 16:39:26 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 #define PLAYER cub3d->player
+
 static void	move_vision(t_cub3d *cub3d)
 {
 	double	oldDirX;
@@ -97,7 +99,7 @@ int	key_press_hook(int key, t_cub3d *cub3d)
 		cub3d->keyboard.right_rotate = 1;
 	else if (key == LEFT)
 		cub3d->keyboard.left_rotate = 1;
-	else if (key == CTRL)
+	else if (key == CTRL && BONUS_FLAG)
 		set_mouse(cub3d);
 	else if (key == ESC)
 		exit_game(cub3d, "Game exited by user.", EXIT_SUCCESS);
@@ -197,7 +199,7 @@ void    update_door_loop(t_cub3d *cub3d)
 int    loop(t_cub3d *cub3d)
 {
 	move_vision(cub3d);
-	if (cub3d->mouse_set)
+	if (BONUS_FLAG && cub3d->mouse_set)
  		mlx_mouse_move(cub3d->mlx, cub3d->mlx_win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	move_player(cub3d);
 	update_door_loop(cub3d);
