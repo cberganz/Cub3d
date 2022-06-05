@@ -6,7 +6,7 @@
 /*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:56:57 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 17:38:32 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:31:25 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	window_initialize(t_cub3d *cub3d)
 
 void	init_player_direction(t_cub3d *cub3d)
 {
-	double	oldDirX;
-	double	oldPlanX;
+	double	old_dirx;
+	double	old_planx;
 	double	angle;
 
 	if (cub3d->player.start_dir == 'N')
@@ -44,22 +44,22 @@ void	init_player_direction(t_cub3d *cub3d)
 		angle = M_PI / 2;
 	else
 		angle = M_PI;
-	oldDirX = cub3d->player.dirX;
-	oldPlanX = cub3d->raycast.planeX;
+	old_dirx = cub3d->player.dirX;
+	old_planx = cub3d->raycast.planeX;
 	cub3d->player.dirX = cub3d->player.dirX * cos(angle)
 		- cub3d->player.dirY * sin(angle);
-	cub3d->player.dirY = oldDirX * sin(angle) + cub3d->player.dirY
+	cub3d->player.dirY = old_dirx * sin(angle) + cub3d->player.dirY
 		* cos(angle);
 	cub3d->raycast.planeX = cub3d->raycast.planeX * cos(angle)
 		- cub3d->raycast.planeY * sin(angle);
-	cub3d->raycast.planeY = oldPlanX * sin(angle) + cub3d->raycast.planeY
+	cub3d->raycast.planeY = old_planx * sin(angle) + cub3d->raycast.planeY
 		* cos(angle);
 }
 
 void	init_animation_sprites(t_cub3d *cub3d)
 {
-	int		i;
-	char	*sprite_paths[8] = {"sprites/torch/hand_torch.xpm",
+	int			i;
+	static char	*sprite_paths[8] = {"sprites/torch/hand_torch.xpm",
 		"sprites/torch/fire1.xpm", "sprites/torch/fire2.xpm",
 		"sprites/torch/fire3.xpm", "sprites/torch/fire4.xpm",
 		"sprites/torch/fire5.xpm", "sprites/torch/fire6.xpm",
