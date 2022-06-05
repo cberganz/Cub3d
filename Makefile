@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+         #
+#    By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 14:42:18 by cberganz          #+#    #+#              #
-#    Updated: 2022/06/05 19:56:48 by cberganz         ###   ########.fr        #
+#    Updated: 2022/06/05 22:31:45 by rbicanic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ SRC_NAME		=	main.c			\
 					game.c			\
 					initialize.c	\
 					utils.c			\
-					exit.c			\
 					parsing/parsing_file_to_strs.c		\
 					parsing/parsing_file_get_textures.c	\
 					parsing/check_path.c				\

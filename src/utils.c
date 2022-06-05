@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:21:40 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 20:20:16 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/05 22:04:05 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ float	get_distance(float x1, float y1, float x2, float y2)
 
 void	find_pix(t_cub3d *cub, int y, unsigned char **pix, t_image *sprite)
 {
-	*pix = &sprite->pixels[(int)(y * sprite->line_len + cub->raycast.texX
+	*pix = &sprite->pixels[(int)(y * sprite->line_len + cub->raycast.texx
 			* (sprite->bits_per_pixel / 8) + sprite->line_len
 			* (1 - get_open_percentage(cub)) - ((int)(sprite->line_len
 					* (1 - get_open_percentage(cub)))

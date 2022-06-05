@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 20:58:50 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 22:30:11 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@
 /*
 ** Game settings
 */
+
+# ifndef BONUS_FLAG
+#  define BONUS_FLAG 0
+# endif
 
 # define CAMERA_SPEED 0.02
 # define MOVE_SPEED 0.05
@@ -137,10 +141,10 @@ typedef struct s_colors
 typedef struct s_player
 {
 	char	start_dir;
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
 }	t_player;
 
 typedef struct s_image {
@@ -155,31 +159,30 @@ typedef struct s_image {
 
 typedef struct s_raycast
 {
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	double	planeX;
-	double	planeY;
-	int		mapX;
-	int		mapY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	perpWallDist;
-	int		stepX;
-	int		stepY;
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+	double	planex;
+	double	planey;
+	int		mapx;
+	int		mapy;
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	double	perpwalldist;
+	int		stepx;
+	int		stepy;
 	int		hit;
 	int		side;
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
-	int		texNum;
-	int		texX;
-	double	wallX;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
+	int		texnum;
+	int		texx;
+	double	wallx;
 }	t_raycast;
 
-// AJOUTE PAR ROBIN 
 typedef struct s_color
 {
 	int	octet[3];
@@ -207,8 +210,6 @@ typedef struct s_door
 	unsigned int		step_percent;
 }	t_door;
 
-// AJOUTE PAR ROBIN 
-
 typedef struct s_cub3d
 {
 	void			*mlx;
@@ -226,8 +227,6 @@ typedef struct s_cub3d
 	int				doors_nbr;
 	t_door			*doors;
 	uint8_t			mouse_set;
-	t_tex			minimap_img;
-	t_tex			overlay_img;
 	t_tex			raycast_img;
 	t_colors		colors;
 	t_keyboard		keyboard;

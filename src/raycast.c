@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 17:40:56 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/06/05 20:14:35 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/05 22:07:56 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,33 +19,33 @@ float	get_open_percentage(t_cub3d *cub3d)
 	i = 0;
 	while (i < cub3d->doors_nbr)
 	{
-		if ((int)cub3d->doors[i].x == cub3d->raycast.mapX
-			&& (int)cub3d->doors[i].y == cub3d->raycast.mapY)
+		if ((int)cub3d->doors[i].x == cub3d->raycast.mapx
+			&& (int)cub3d->doors[i].y == cub3d->raycast.mapy)
 			return ((float)cub3d->doors[i].step_percent / 100);
 		i++;
 	}
 	return (-1.0f);
 }
 
-static int	choose_texture_to_draw(t_cub3d *cub3d, int x, int i, double *texPos)
+static int	choose_texture_to_draw(t_cub3d *cub3d, int x, int i, double *texpos)
 {
 	unsigned char	*pixel;
-	int				texY;
+	int				texy;
 	t_image			sprite;
 
-	sprite = cub3d->sprites[cub3d->raycast.texNum];
-	texY = (int) *texPos & (cub3d->sprites[cub3d->raycast.texNum].y - 1);
-	*texPos += 1.0 * cub3d->sprites[cub3d->raycast.texNum].y
-		/ cub3d->raycast.lineHeight;
-	pixel = &sprite.pixels[texY * sprite.line_len + cub3d->raycast.texX
+	sprite = cub3d->sprites[cub3d->raycast.texnum];
+	texy = (int) *texpos & (cub3d->sprites[cub3d->raycast.texnum].y - 1);
+	*texpos += 1.0 * cub3d->sprites[cub3d->raycast.texnum].y
+		/ cub3d->raycast.lineheight;
+	pixel = &sprite.pixels[texy * sprite.line_len + cub3d->raycast.texx
 		* (sprite.bits_per_pixel / 8)];
-	if (cub3d->raycast.texNum == 4 && cub3d->raycast.texX
+	if (cub3d->raycast.texnum == 4 && cub3d->raycast.texx
 		* (sprite.bits_per_pixel / 8) < sprite.line_len
 		* get_open_percentage(cub3d))
 		return (1);
-	else if (cub3d->raycast.texNum == 4)
+	else if (cub3d->raycast.texnum == 4)
 	{
-		find_pix(cub3d, texY, &pixel, &sprite);
+		find_pix(cub3d, texy, &pixel, &sprite);
 		put_pixel_to_img(&cub3d->raycast_img, x, i,
 			get_trgb(0, pixel[2], pixel[1], pixel[0]));
 	}
@@ -59,21 +59,21 @@ static int	draw_line(t_cub3d *cub3d, int x)
 {
 	int				i;
 	double			step;
-	double			texPos;
+	double			texpos;
 	int				reached_door_end;
 
 	reached_door_end = 0;
-	step = 1.0 * cub3d->sprites[cub3d->raycast.texNum].y
-		/ cub3d->raycast.lineHeight;
-	texPos = (cub3d->raycast.drawStart - SCREEN_HEIGHT
-			/ 2 + cub3d->raycast.lineHeight / 2) * step;
+	step = 1.0 * cub3d->sprites[cub3d->raycast.texnum].y
+		/ cub3d->raycast.lineheight;
+	texpos = (cub3d->raycast.drawstart - SCREEN_HEIGHT
+			/ 2 + cub3d->raycast.lineheight / 2) * step;
 	i = 0;
 	while (i < SCREEN_HEIGHT)
 	{
-		if (i < cub3d->raycast.drawStart)
+		if (i < cub3d->raycast.drawstart)
 			put_pixel_to_img(&cub3d->raycast_img, x, i, cub3d->colors.sky);
-		else if (i < cub3d->raycast.drawEnd)
-			reached_door_end = choose_texture_to_draw(cub3d, x, i, &texPos);
+		else if (i < cub3d->raycast.drawend)
+			reached_door_end = choose_texture_to_draw(cub3d, x, i, &texpos);
 		else
 			put_pixel_to_img(&cub3d->raycast_img, x, i, cub3d->colors.floor);
 		i++;
@@ -85,13 +85,13 @@ void	raycast_loop(t_cub3d *cub3d, t_raycast *raycast, int x, int *hit_door)
 {
 	raycast_initialize(cub3d, raycast, x);
 	raycast_find_wall(cub3d, raycast, *hit_door);
-	raycast->lineHeight = (int)(SCREEN_HEIGHT / raycast->perpWallDist);
-	raycast->drawStart = -raycast->lineHeight / 2 + SCREEN_HEIGHT / 2;
-	if (raycast->drawStart < 0)
-			raycast->drawStart = 0;
-	raycast->drawEnd = raycast->lineHeight / 2 + SCREEN_HEIGHT / 2;
-	if (raycast->drawEnd >= SCREEN_HEIGHT)
-			raycast->drawEnd = SCREEN_HEIGHT - 1;
+	raycast->lineheight = (int)(SCREEN_HEIGHT / raycast->perpwalldist);
+	raycast->drawstart = -raycast->lineheight / 2 + SCREEN_HEIGHT / 2;
+	if (raycast->drawstart < 0)
+			raycast->drawstart = 0;
+	raycast->drawend = raycast->lineheight / 2 + SCREEN_HEIGHT / 2;
+	if (raycast->drawend >= SCREEN_HEIGHT)
+			raycast->drawend = SCREEN_HEIGHT - 1;
 	texture_calculation(cub3d);
 	if (draw_line(cub3d, x))
 		*hit_door = 0;

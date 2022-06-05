@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   torch_animation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 18:57:40 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/06/05 20:34:31 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 22:08:50 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	insert_torch(t_cub3d *cub3d)
 				* (cub3d->torch_sprites[0].bits_per_pixel / 8)];
 			if (pixel[2] != 42 && pixel[1] != 255 && pixel[0] != 2)
 				put_pixel_to_img(&cub3d->raycast_img,
-					(SCREEN_WIDTH * 3 / 4 - 32) + x, (SCREEN_HEIGHT  - 128)
+					(SCREEN_WIDTH * 3 / 4 - 32) + x, (SCREEN_HEIGHT - 128)
 					+ y, get_trgb(0, pixel[2], pixel[1], pixel[0]));
 			x++;
 		}
@@ -56,9 +56,9 @@ void	insert_flame(t_cub3d *cub3d)
 				* (cub3d->torch_sprites[frame / 10].bits_per_pixel / 8)];
 			if (pixel[2] != 0 && pixel[1] != 0 && pixel[0] != 0)
 				put_pixel_to_img(&cub3d->raycast_img,
-				(SCREEN_WIDTH * 3 / 4 - 20) + x,
-				(SCREEN_WIDTH * 3 / 4 - 10) + y,
-				get_trgb(0, pixel[2], pixel[1], pixel[0]));
+					(SCREEN_WIDTH * 3 / 4 - 20) + x,
+					(SCREEN_WIDTH * 3 / 4 - 10) + y,
+					get_trgb(0, pixel[2], pixel[1], pixel[0]));
 		}
 	}
 	frame++;

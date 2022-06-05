@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 17:17:23 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/06/05 17:22:16 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/05 22:28:39 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	find_player_data(t_map *map, t_player *player)
 			{
 				player->start_dir = map->map_strs[y][x];
 				map->map_strs[y][x] = '0';
-				player->posX = x;
-				player->posY = y;
+				player->posx = x;
+				player->posy = y;
 				return ;
 			}
 			x++;
@@ -86,7 +86,7 @@ void	alloc_doors(t_cub3d *cub3d, t_map map)
 	}
 	if (mem_alloc(cub3d->doors_nbr * sizeof(t_door),
 			(void **)&cub3d->doors, MAIN))
-		exit_game(cub3d, MALLOC_ERR_MSG, 1);
+		error_message_and_exit(1, MALLOC_ERR_MSG);
 }
 
 bool	extrem_lines_are_correct(char *line)

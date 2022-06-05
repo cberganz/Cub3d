@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:56:57 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 19:31:25 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 22:06:21 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ void	init_player_direction(t_cub3d *cub3d)
 		angle = M_PI / 2;
 	else
 		angle = M_PI;
-	old_dirx = cub3d->player.dirX;
-	old_planx = cub3d->raycast.planeX;
-	cub3d->player.dirX = cub3d->player.dirX * cos(angle)
-		- cub3d->player.dirY * sin(angle);
-	cub3d->player.dirY = old_dirx * sin(angle) + cub3d->player.dirY
+	old_dirx = cub3d->player.dirx;
+	old_planx = cub3d->raycast.planex;
+	cub3d->player.dirx = cub3d->player.dirx * cos(angle)
+		- cub3d->player.diry * sin(angle);
+	cub3d->player.diry = old_dirx * sin(angle) + cub3d->player.diry
 		* cos(angle);
-	cub3d->raycast.planeX = cub3d->raycast.planeX * cos(angle)
-		- cub3d->raycast.planeY * sin(angle);
-	cub3d->raycast.planeY = old_planx * sin(angle) + cub3d->raycast.planeY
+	cub3d->raycast.planex = cub3d->raycast.planex * cos(angle)
+		- cub3d->raycast.planey * sin(angle);
+	cub3d->raycast.planey = old_planx * sin(angle) + cub3d->raycast.planey
 		* cos(angle);
 }
 
@@ -88,10 +88,10 @@ void	game_initialize(t_cub3d *cub3d)
 		cub3d->mouse_set = 1;
 	else
 		cub3d->mouse_set = 0;
-	cub3d->player.dirX = 0;
-	cub3d->player.dirY = -1;
-	cub3d->raycast.planeX = 0.66f;
-	cub3d->raycast.planeY = 0;
+	cub3d->player.dirx = 0;
+	cub3d->player.diry = -1;
+	cub3d->raycast.planex = 0.66f;
+	cub3d->raycast.planey = 0;
 	cub3d->move_speed = MOVE_SPEED;
 	cub3d->camera_speed = CAMERA_SPEED;
 	init_player_direction(cub3d);

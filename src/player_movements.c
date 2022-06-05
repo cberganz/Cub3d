@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movements.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 19:54:44 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 19:55:59 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 22:06:21 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static void	update_cam(t_cub3d *cub3d, t_player *player, int sign, float speed)
 	double	old_dirx;
 	double	old_planex;
 
-	old_dirx = player->dirX;
-	old_planex = cub3d->raycast.planeX;
-	player->dirX = player->dirX * cos(cub3d->camera_speed * speed * sign)
-		- player->dirY * sin(cub3d->camera_speed * speed * sign);
-	player->dirY = old_dirx * sin(cub3d->camera_speed * speed * sign)
-		+ player->dirY * cos(cub3d->camera_speed * speed * sign);
-	cub3d->raycast.planeX = cub3d->raycast.planeX
-		* cos(cub3d->camera_speed * speed * sign) - cub3d->raycast.planeY
+	old_dirx = player->dirx;
+	old_planex = cub3d->raycast.planex;
+	player->dirx = player->dirx * cos(cub3d->camera_speed * speed * sign)
+		- player->diry * sin(cub3d->camera_speed * speed * sign);
+	player->diry = old_dirx * sin(cub3d->camera_speed * speed * sign)
+		+ player->diry * cos(cub3d->camera_speed * speed * sign);
+	cub3d->raycast.planex = cub3d->raycast.planex
+		* cos(cub3d->camera_speed * speed * sign) - cub3d->raycast.planey
 		* sin(cub3d->camera_speed * speed * sign);
-	cub3d->raycast.planeY = old_planex * sin(cub3d->camera_speed * speed * sign)
-		+ cub3d->raycast.planeY * cos(cub3d->camera_speed * speed * sign);
+	cub3d->raycast.planey = old_planex * sin(cub3d->camera_speed * speed * sign)
+		+ cub3d->raycast.planey * cos(cub3d->camera_speed * speed * sign);
 }
 
 void	move_vision(t_cub3d *cub3d, t_player *player)
@@ -51,30 +51,30 @@ void	move_vision(t_cub3d *cub3d, t_player *player)
 
 static void	move_forward_back(t_cub3d *cub3d, t_player *player, int sign)
 {
-	if (hitbox_wallhit(cub3d, player->posX, player->posY
-			+ (player->dirY * cub3d->move_speed * sign)))
-		player->posY += player->dirY * cub3d->move_speed * sign;
-	if (hitbox_wallhit(cub3d, player->posX
-			+ (player->dirX * cub3d->move_speed * sign), player->posY))
-		player->posX += player->dirX * cub3d->move_speed * sign;
+	if (hitbox_wallhit(cub3d, player->posx, player->posy
+			+ (player->diry * cub3d->move_speed * sign)))
+		player->posy += player->diry * cub3d->move_speed * sign;
+	if (hitbox_wallhit(cub3d, player->posx
+			+ (player->dirx * cub3d->move_speed * sign), player->posy))
+		player->posx += player->dirx * cub3d->move_speed * sign;
 }
 
 static void	move_right_left(t_cub3d *cub3d, t_player *player, int sign)
 {
 	double	old_dirx;
 
-	old_dirx = player->dirX;
-	if (hitbox_wallhit(cub3d, player->posX
-			+ ((player->dirX * cos(ROTATION_ANGLE * sign) - player->dirY
+	old_dirx = player->dirx;
+	if (hitbox_wallhit(cub3d, player->posx
+			+ ((player->dirx * cos(ROTATION_ANGLE * sign) - player->diry
 					* sin(ROTATION_ANGLE * sign)) * cub3d->move_speed),
-			player->posY))
-		player->posX += (player->dirX * cos(ROTATION_ANGLE * sign)
-				- player->dirY * sin(ROTATION_ANGLE * sign))
+			player->posy))
+		player->posx += (player->dirx * cos(ROTATION_ANGLE * sign)
+				- player->diry * sin(ROTATION_ANGLE * sign))
 			* cub3d->move_speed;
-	if (hitbox_wallhit(cub3d, player->posX, player->posY + (old_dirx
-				* sin(ROTATION_ANGLE * sign) + player->dirY
+	if (hitbox_wallhit(cub3d, player->posx, player->posy + (old_dirx
+				* sin(ROTATION_ANGLE * sign) + player->diry
 				* cos(ROTATION_ANGLE * sign)) * cub3d->move_speed))
-		player->posY += (old_dirx * sin(ROTATION_ANGLE * sign) + player->dirY
+		player->posy += (old_dirx * sin(ROTATION_ANGLE * sign) + player->diry
 				* cos(ROTATION_ANGLE * sign)) * cub3d->move_speed;
 }
 

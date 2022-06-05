@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:18:21 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 17:40:45 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 22:15:40 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int argc, char **argv, char **envp)
 	global_parsing(&cub3d, argv[1]);
 	window_initialize(&cub3d);
 	init_sprites(&cub3d);
-	img_initialize(&cub3d, &cub3d.minimap_img, MINIMAP_WIDTH, MINIMAP_HEIGHT);
 	img_initialize(&cub3d, &cub3d.raycast_img, SCREEN_WIDTH, SCREEN_WIDTH);
 	game_initialize(&cub3d);
 	game_loop(&cub3d);

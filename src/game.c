@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:06:45 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 19:55:38 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 22:06:21 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ t_door	*targeted_door(t_cub3d *cub3d)
 	i = 0;
 	while (i < cub3d->doors_nbr)
 	{
-		if (cub3d->player.dirX + cub3d->player.posX > cub3d->doors[i].x
-			&& cub3d->player.dirX + cub3d->player.posX < cub3d->doors[i].x + 1
-			&& cub3d->player.dirY + cub3d->player.posY > cub3d->doors[i].y
-			&& cub3d->player.dirY + cub3d->player.posY < cub3d->doors[i].y + 1)
+		if (cub3d->player.dirx + cub3d->player.posx > cub3d->doors[i].x
+			&& cub3d->player.dirx + cub3d->player.posx < cub3d->doors[i].x + 1
+			&& cub3d->player.diry + cub3d->player.posy > cub3d->doors[i].y
+			&& cub3d->player.diry + cub3d->player.posy < cub3d->doors[i].y + 1)
 			return (&cub3d->doors[i]);
 		i++;
 	}

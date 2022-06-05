@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 22:15:12 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 19:25:49 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 22:06:21 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static uint8_t	is_on_vector_line(t_cub3d *cub3d, float x, float y)
 	float	x_proj;
 	float	y_proj;
 
-	x_proj = MINIMAP_CENTER + cub3d->player.dirX * DIRECTION_LINE_SIZE;
-	y_proj = MINIMAP_CENTER + cub3d->player.dirY * DIRECTION_LINE_SIZE;
+	x_proj = MINIMAP_CENTER + cub3d->player.dirx * DIRECTION_LINE_SIZE;
+	y_proj = MINIMAP_CENTER + cub3d->player.diry * DIRECTION_LINE_SIZE;
 	return (get_distance(MINIMAP_CENTER, MINIMAP_CENTER, x, y)
 		+ get_distance(x_proj, y_proj, x, y)
 		> get_distance(MINIMAP_CENTER, MINIMAP_CENTER, x_proj, y_proj)
@@ -70,11 +70,11 @@ void	draw_minimap(t_cub3d *cub3d)
 	float	y_map;
 
 	y_pixel = -1;
-	y_map = cub3d->player.posY - SIZE_AROUND_PLAYER;
+	y_map = cub3d->player.posy - SIZE_AROUND_PLAYER;
 	while (++y_pixel < MINIMAP_HEIGHT)
 	{
 		x_pixel = -1;
-		x_map = cub3d->player.posX - SIZE_AROUND_PLAYER;
+		x_map = cub3d->player.posx - SIZE_AROUND_PLAYER;
 		while (++x_pixel < MINIMAP_WIDTH)
 		{
 			if (is_on_vector_line(cub3d, x_pixel, y_pixel)
