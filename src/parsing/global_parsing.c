@@ -6,13 +6,11 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/29 16:56:01 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/06/03 16:52:56 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/05 17:15:53 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#define SKY_COLOR prog->wall_textures.colors[1]
-#define FLOOR_COLOR prog->wall_textures.colors[0]
 
 void	init_structure(t_cub3d *prog)
 {
@@ -25,7 +23,6 @@ void	init_structure(t_cub3d *prog)
 	prog->map_struct.map_strs = NULL;
 	prog->map_struct.height = 0;
 	prog->map_struct.width = 0;
-
 }
 
 void	global_parsing(t_cub3d *prog, char *file_name)
@@ -47,6 +44,12 @@ void	global_parsing(t_cub3d *prog, char *file_name)
 	alloc_doors(prog, prog->map_struct);
 	init_doors(prog, prog->map_struct);
 	del_garbage(LOOP);
-	prog->colors.sky = get_trgb(0, SKY_COLOR.octet[0], SKY_COLOR.octet[1], SKY_COLOR.octet[2]);//utiliser couleurs du fichier
-    prog->colors.floor = get_trgb(0, FLOOR_COLOR.octet[0], FLOOR_COLOR.octet[1], FLOOR_COLOR.octet[2]);//utiliser couleurs du fichier
+	prog->colors.sky = get_trgb(0,
+			prog->wall_textures.colors[1].octet[0],
+			prog->wall_textures.colors[1].octet[1],
+			prog->wall_textures.colors[1].octet[2]);
+	prog->colors.floor = get_trgb(0,
+			prog->wall_textures.colors[0].octet[0],
+			prog->wall_textures.colors[0].octet[1],
+			prog->wall_textures.colors[0].octet[2]);
 }

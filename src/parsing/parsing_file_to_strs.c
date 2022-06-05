@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:15:01 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/05/29 17:27:46 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/05 16:44:50 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	get_file_size(char *file_name)
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 		error_message_and_exit(1, FD_ARG_ERR_MSG);
-	while (read(fd, &c, 1))//peut etre check le retour pour les dossiers
+	while (read(fd, &c, 1))
 		len++;
 	close(fd);
-	return (len);	
+	return (len);
 }
 
 bool	map_has_empty_line(char *str_file)
@@ -69,7 +69,7 @@ char	*file_to_string(char *file_name)
 	if (fd == -1)
 		error_message_and_exit(1, FD_ARG_ERR_MSG);
 	i = 0;
-	while (read(fd, &file_to_string[i], 1))//peut etre check le retour pour les dossiers
+	while (read(fd, &file_to_string[i], 1))
 		i++;
 	file_to_string[i] = '\0';
 	close(fd);
