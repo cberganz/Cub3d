@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 19:05:42 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/05 20:15:40 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,6 +280,7 @@ void	raycast_find_wall(t_cub3d *cub3d, t_raycast *raycast, int do_hit_door);
 void	raycast_initialize(t_cub3d *cub3d, t_raycast *raycast, int x);
 void	find_texture_index(t_cub3d *cub3d);
 void	texture_calculation(t_cub3d *cub3d);
+float	get_open_percentage(t_cub3d *cub3d);
 
 /*
 ** Minimap and overlay functions
@@ -319,6 +320,7 @@ void	free_and_exit(int exit_code);
 bool	is_int_overflow(char *str_nbr);
 bool	is_str_digit(char *str);
 void	error_message_and_exit(int exit_code, char *message);
+void	find_pix(t_cub3d *cub, int y, unsigned char **pix, t_image *sprite);
 
 /*
 ** Tools functions

@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 17:40:56 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/06/05 19:07:18 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/05 20:14:35 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,6 @@ float	get_open_percentage(t_cub3d *cub3d)
 		i++;
 	}
 	return (-1.0f);
-}
-
-static void	find_pix(t_cub3d *cub, int y, unsigned char **pix, t_image *sprite)
-{
-	*pix = &sprite->pixels[(int)(y * sprite->line_len + cub->raycast.texX
-			* (sprite->bits_per_pixel / 8) + sprite->line_len
-			* (1 - get_open_percentage(cub)) - ((int)(sprite->line_len
-					* (1 - get_open_percentage(cub)))
-				% (sprite->bits_per_pixel / 8)))];
 }
 
 static int	choose_texture_to_draw(t_cub3d *cub3d, int x, int i, double *texPos)
