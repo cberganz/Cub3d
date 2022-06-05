@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 21:24:27 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/05/29 20:08:24 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/05 16:59:20 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ bool	are_color_instruction_valid(t_wall_textures *textures)
 	i = 4;
 	while (i < 6)
 	{
-		convert_string_to_color(textures->textures_paths[i], &textures->colors[i % 4]);
-		if (textures->colors[i % 4].octet[0] > 255 || textures->colors[i % 4].octet[1] > 255
-			|| textures->colors[i % 4].octet[2] > 255)// bad color
+		convert_string_to_color(textures->textures_paths[i],
+			&textures->colors[i % 4]);
+		if (textures->colors[i % 4].octet[0] > 255
+			|| textures->colors[i % 4].octet[1] > 255
+			|| textures->colors[i % 4].octet[2] > 255)
 			return (false);
 		i++;
 	}

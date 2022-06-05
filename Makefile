@@ -6,7 +6,7 @@
 #    By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 14:42:18 by cberganz          #+#    #+#              #
-#    Updated: 2022/05/30 18:53:56 by rbicanic         ###   ########.fr        #
+#    Updated: 2022/06/05 17:19:24 by rbicanic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC_NAME		=	main.c			\
 					parsing/check_map_error.c			\
 					parsing/check_instructions_error.c	\
 					parsing/parsing_images.c			\
+					parsing/parsing_init_elements.c		\
 					parsing/global_parsing.c			\
 					utils/utils_exit.c					\
 					utils/utils_str_to_int.c

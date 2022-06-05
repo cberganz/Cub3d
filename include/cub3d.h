@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 16:32:05 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 17:22:58 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,6 +297,7 @@ t_image	ft_new_sprite(t_cub3d *prgm, char *path);
 void	init_sprites(t_cub3d *prgm);
 void	init_doors(t_cub3d *cub3d, t_map map);
 void	alloc_doors(t_cub3d *cub3d, t_map map);
+bool	extrem_lines_are_correct(char *line);
 
 /*
 **	CHECK ERRORS ROBIN
