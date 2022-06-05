@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:21:40 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 20:14:18 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/05 20:20:16 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	get_trgb(int t, int r, int g, int b)
 	return (t << 24 | r << 16 | g << 8 | b);
 }
 
-float  get_distance(float x1, float y1, float x2, float y2)
+float	get_distance(float x1, float y1, float x2, float y2)
 {
-    return (sqrtf(powf(x1 - x2, 2) + powf(y1 - y2, 2)));
+	return (sqrtf(powf(x1 - x2, 2) + powf(y1 - y2, 2)));
 }
 
 void	find_pix(t_cub3d *cub, int y, unsigned char **pix, t_image *sprite)
