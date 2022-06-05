@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+         #
+#    By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 14:42:18 by cberganz          #+#    #+#              #
-#    Updated: 2022/06/05 19:07:50 by rbicanic         ###   ########.fr        #
+#    Updated: 2022/06/05 19:56:48 by cberganz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,9 @@ SRC_NAME		=	main.c			\
 					utils/utils_str_to_int.c			\
 					torch_animation.c					\
 					raycast_init_data.c					\
+					hitbox.c							\
+					key_hooks.c							\
+					player_movements.c					\
 					parsing/parsing_get_map.c	
 
 

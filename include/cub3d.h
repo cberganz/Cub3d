@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 19:05:42 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/05 20:01:29 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@
 ** Keyboard keys
 */
 
-
 # define D 100
 # define A 97
 # define W 119
@@ -113,13 +112,13 @@
 /*
 ** Error Messages
 */
-#define FD_CUB_MSG "You should pass an existing file with '.cub' extension"
-#define FD_XPM_MSG "You should pass an existing texture file with '.xpm' extension"
-#define COLOR_FORMAT_ERROR "Invalid color format"
-#define TEXTURES_INSTRUCTION_ERROR "Invalid textures instructions"
-#define INCORECT_MAP_MSG "Map is incorrect"
-#define MALLOC_ERR_MSG "Malloc error"
-#define FD_ARG_ERR_MSG "Failed opening argument file"
+# define FD_CUB_MSG "You should pass an existing file with '.cub' extension"
+# define FD_XPM_MSG "You should pass an existing texture with .xpm extension"
+# define COLOR_FORMAT_ERROR "Invalid color format"
+# define TEXTURES_INSTRUCTION_ERROR "Invalid textures instructions"
+# define INCORECT_MAP_MSG "Map is incorrect"
+# define MALLOC_ERR_MSG "Malloc error"
+# define FD_ARG_ERR_MSG "Failed opening argument file"
 
 /*
 ** Game data structures
@@ -190,9 +189,9 @@ typedef struct s_raycast
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
-	int 	texNum;
-	int 	texX;
-	double 	wallX;
+	int		texNum;
+	int		texX;
+	double	wallX;
 }	t_raycast;
 
 // AJOUTE PAR ROBIN 
@@ -280,6 +279,12 @@ void	raycast_find_wall(t_cub3d *cub3d, t_raycast *raycast, int do_hit_door);
 void	raycast_initialize(t_cub3d *cub3d, t_raycast *raycast, int x);
 void	find_texture_index(t_cub3d *cub3d);
 void	texture_calculation(t_cub3d *cub3d);
+uint8_t	hitbox_wallhit(t_cub3d *cub3d, double x, double y);
+uint8_t	is_on_door(t_cub3d *cub3d, t_door *targeted_door);
+int		key_press_hook(int key, t_cub3d *cub3d);
+int		key_release_hook(int key, t_cub3d *cub3d);
+void	move_vision(t_cub3d *cub3d, t_player *player);
+void	move_player(t_cub3d *cub3d, t_player *player);
 
 /*
 ** Minimap and overlay functions
