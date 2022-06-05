@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/04 20:08:03 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/05 16:15:31 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@
 # define ESC 65307
 # define CTRL 65507
 # define SPACE 32
+# define PLUS 61
+# define MINUS 45
 
 /*
 ** Garbage Collector
@@ -235,6 +237,8 @@ typedef struct s_cub3d
 	char		**map;
 	int			height;
 	int			width;
+	float		move_speed;
+	float		camera_speed;
 	// AJOUTE PAR ROBIN 
 	
 	char			**file_to_strs;

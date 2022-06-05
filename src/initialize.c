@@ -6,7 +6,7 @@
 /*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:56:57 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/04 22:50:14 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 16:15:22 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void    game_initialize(t_cub3d *cub3d)
     cub3d->player.dirY = -1;
     cub3d->raycast.planeX = 0.66f;
     cub3d->raycast.planeY = 0;
+    cub3d->move_speed = MOVE_SPEED;
+    cub3d->camera_speed = CAMERA_SPEED;
     init_player_direction(cub3d);
     init_animation_sprites(cub3d);
 }
