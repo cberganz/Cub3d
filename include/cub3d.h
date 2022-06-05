@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 17:28:52 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:05:42 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,13 @@ void    mouse_rotation(t_cub3d *cub3d);
 void	set_mouse(t_cub3d *cub3d);
 void    raycast(t_cub3d *cub3d, t_raycast *raycast);
 t_door  *targeted_door(t_cub3d *cub3d);
+void	insert_torch(t_cub3d *cub3d);
+void	insert_flame(t_cub3d *cub3d);
+void	put_pixel_to_img(t_tex *img, int x, int y, int color);
+void	raycast_find_wall(t_cub3d *cub3d, t_raycast *raycast, int do_hit_door);
+void	raycast_initialize(t_cub3d *cub3d, t_raycast *raycast, int x);
+void	find_texture_index(t_cub3d *cub3d);
+void	texture_calculation(t_cub3d *cub3d);
 
 /*
 ** Minimap and overlay functions

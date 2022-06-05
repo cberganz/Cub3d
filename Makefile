@@ -6,7 +6,7 @@
 #    By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 14:42:18 by cberganz          #+#    #+#              #
-#    Updated: 2022/06/05 17:29:43 by rbicanic         ###   ########.fr        #
+#    Updated: 2022/06/05 19:07:50 by rbicanic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,6 @@ SRC_NAME		=	main.c			\
 					exit.c			\
 					parsing/parsing_file_to_strs.c		\
 					parsing/parsing_file_get_textures.c	\
-					parsing/parsing_get_map.c			\
 					parsing/check_path.c				\
 					parsing/check_map_error.c			\
 					parsing/check_instructions_error.c	\
@@ -41,7 +40,10 @@ SRC_NAME		=	main.c			\
 					parsing/parsing_init_elements.c		\
 					parsing/global_parsing.c			\
 					utils/utils_exit.c					\
-					utils/utils_str_to_int.c
+					utils/utils_str_to_int.c			\
+					torch_animation.c					\
+					raycast_init_data.c					\
+					parsing/parsing_get_map.c	
 
 
 SRC_DIR			= src/

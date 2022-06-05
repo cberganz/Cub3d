@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 22:15:12 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/04 16:15:57 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 19:02:05 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	put_pixel_to_img(t_tex *img, int x, int y, int color)
+void	put_pixel_to_img(t_tex *img, int x, int y, int color)
 {
 	if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
 		return ;
