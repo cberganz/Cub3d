@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 15:06:45 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/04 19:52:06 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/05 16:23:04 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ static void	move_vision(t_cub3d *cub3d)
 	speed = abs(x - SCREEN_WIDTH / 2) > 0 && cub3d->mouse_set ? abs(x - SCREEN_WIDTH / 2) / 2 : 1;
 	if ((x > SCREEN_WIDTH / 2 && cub3d->mouse_set) || (cub3d->keyboard.right_rotate && !cub3d->keyboard.left_rotate))
 	{
- 		PLAYER.dirX = PLAYER.dirX * cos(CAMERA_SPEED * speed) - PLAYER.dirY * sin(CAMERA_SPEED * speed);
- 		PLAYER.dirY = oldDirX * sin(CAMERA_SPEED * speed) + PLAYER.dirY * cos(CAMERA_SPEED * speed);
- 		cub3d->raycast.planeX = cub3d->raycast.planeX * cos(CAMERA_SPEED * speed) - cub3d->raycast.planeY * sin(CAMERA_SPEED * speed);
-		cub3d->raycast.planeY = oldPlaneX * sin(CAMERA_SPEED * speed) + cub3d->raycast.planeY * cos(CAMERA_SPEED * speed);
+ 		PLAYER.dirX = PLAYER.dirX * cos(cub3d->camera_speed * speed) - PLAYER.dirY * sin(cub3d->camera_speed * speed);
+ 		PLAYER.dirY = oldDirX * sin(cub3d->camera_speed * speed) + PLAYER.dirY * cos(cub3d->camera_speed * speed);
+ 		cub3d->raycast.planeX = cub3d->raycast.planeX * cos(cub3d->camera_speed * speed) - cub3d->raycast.planeY * sin(cub3d->camera_speed * speed);
+		cub3d->raycast.planeY = oldPlaneX * sin(cub3d->camera_speed * speed) + cub3d->raycast.planeY * cos(cub3d->camera_speed * speed);
 	}
 	else if ((x < SCREEN_WIDTH / 2 && cub3d->mouse_set) || (cub3d->keyboard.left_rotate && !cub3d->keyboard.right_rotate))
 	{
- 		PLAYER.dirX = PLAYER.dirX * cos(-CAMERA_SPEED * speed) - PLAYER.dirY * sin(-CAMERA_SPEED * speed);
- 		PLAYER.dirY = oldDirX * sin(-CAMERA_SPEED * speed) + PLAYER.dirY * cos(-CAMERA_SPEED * speed);
- 		cub3d->raycast.planeX = cub3d->raycast.planeX * cos(-CAMERA_SPEED * speed) - cub3d->raycast.planeY * sin(-CAMERA_SPEED * speed);
-		cub3d->raycast.planeY = oldPlaneX * sin(-CAMERA_SPEED * speed) + cub3d->raycast.planeY * cos(-CAMERA_SPEED * speed);
+ 		PLAYER.dirX = PLAYER.dirX * cos(-cub3d->camera_speed * speed) - PLAYER.dirY * sin(-cub3d->camera_speed * speed);
+ 		PLAYER.dirY = oldDirX * sin(-cub3d->camera_speed * speed) + PLAYER.dirY * cos(-cub3d->camera_speed * speed);
+ 		cub3d->raycast.planeX = cub3d->raycast.planeX * cos(-cub3d->camera_speed * speed) - cub3d->raycast.planeY * sin(-cub3d->camera_speed * speed);
+		cub3d->raycast.planeY = oldPlaneX * sin(-cub3d->camera_speed * speed) + cub3d->raycast.planeY * cos(-cub3d->camera_speed * speed);
 	}
 }
 
@@ -55,31 +55,31 @@ static void	move_player(t_cub3d *cub3d)
 	oldDirX = PLAYER.dirX;
 	if (cub3d->keyboard.top && !cub3d->keyboard.bottom)
 	{
- 		if (hitbox_wallhit(cub3d, PLAYER.posX, PLAYER.posY + PLAYER.dirY * MOVE_SPEED))
- 			PLAYER.posY += PLAYER.dirY * MOVE_SPEED;
- 		if (hitbox_wallhit(cub3d, PLAYER.posX + PLAYER.dirX * MOVE_SPEED, PLAYER.posY))
-  		  	PLAYER.posX += PLAYER.dirX * MOVE_SPEED;
+ 		if (hitbox_wallhit(cub3d, PLAYER.posX, PLAYER.posY + PLAYER.dirY * cub3d->move_speed))
+ 			PLAYER.posY += PLAYER.dirY * cub3d->move_speed;
+ 		if (hitbox_wallhit(cub3d, PLAYER.posX + PLAYER.dirX * cub3d->move_speed, PLAYER.posY))
+  		  	PLAYER.posX += PLAYER.dirX * cub3d->move_speed;
 	}
 	else if (cub3d->keyboard.bottom && !cub3d->keyboard.top)
 	{
- 		if (hitbox_wallhit(cub3d, PLAYER.posX, PLAYER.posY - PLAYER.dirY * MOVE_SPEED))
- 			PLAYER.posY -= PLAYER.dirY * MOVE_SPEED;
- 		if (hitbox_wallhit(cub3d, PLAYER.posX - PLAYER.dirX * MOVE_SPEED, PLAYER.posY))
-  		  	PLAYER.posX -= PLAYER.dirX * MOVE_SPEED;
+ 		if (hitbox_wallhit(cub3d, PLAYER.posX, PLAYER.posY - PLAYER.dirY * cub3d->move_speed))
+ 			PLAYER.posY -= PLAYER.dirY * cub3d->move_speed;
+ 		if (hitbox_wallhit(cub3d, PLAYER.posX - PLAYER.dirX * cub3d->move_speed, PLAYER.posY))
+  		  	PLAYER.posX -= PLAYER.dirX * cub3d->move_speed;
 	}
 	if (cub3d->keyboard.right && !cub3d->keyboard.left)
 	{
-		if (hitbox_wallhit(cub3d, PLAYER.posX + ((PLAYER.dirX * cos(ROTATION_ANGLE) - PLAYER.dirY * sin(ROTATION_ANGLE)) * MOVE_SPEED), PLAYER.posY))
-			PLAYER.posX += (PLAYER.dirX * cos(ROTATION_ANGLE) - PLAYER.dirY * sin(ROTATION_ANGLE)) * MOVE_SPEED;
-		if (hitbox_wallhit(cub3d, PLAYER.posX, PLAYER.posY + (oldDirX * sin(ROTATION_ANGLE) + PLAYER.dirY * cos(ROTATION_ANGLE)) * MOVE_SPEED))
- 			PLAYER.posY += (oldDirX * sin(ROTATION_ANGLE) + PLAYER.dirY * cos(ROTATION_ANGLE)) * MOVE_SPEED;
+		if (hitbox_wallhit(cub3d, PLAYER.posX + ((PLAYER.dirX * cos(ROTATION_ANGLE) - PLAYER.dirY * sin(ROTATION_ANGLE)) * cub3d->move_speed), PLAYER.posY))
+			PLAYER.posX += (PLAYER.dirX * cos(ROTATION_ANGLE) - PLAYER.dirY * sin(ROTATION_ANGLE)) * cub3d->move_speed;
+		if (hitbox_wallhit(cub3d, PLAYER.posX, PLAYER.posY + (oldDirX * sin(ROTATION_ANGLE) + PLAYER.dirY * cos(ROTATION_ANGLE)) * cub3d->move_speed))
+ 			PLAYER.posY += (oldDirX * sin(ROTATION_ANGLE) + PLAYER.dirY * cos(ROTATION_ANGLE)) * cub3d->move_speed;
 	}
 	else if (cub3d->keyboard.left && !cub3d->keyboard.right)
 	{
-		if (hitbox_wallhit(cub3d, PLAYER.posX + ((PLAYER.dirX * cos(-ROTATION_ANGLE) - PLAYER.dirY * sin(-ROTATION_ANGLE)) * MOVE_SPEED), PLAYER.posY))
-			PLAYER.posX += (PLAYER.dirX * cos(-ROTATION_ANGLE) - PLAYER.dirY * sin(-ROTATION_ANGLE)) * MOVE_SPEED;
-		if (hitbox_wallhit(cub3d, PLAYER.posX, PLAYER.posY + (oldDirX * sin(-ROTATION_ANGLE) + PLAYER.dirY * cos(-ROTATION_ANGLE)) * MOVE_SPEED))
- 			PLAYER.posY += (oldDirX * sin(-ROTATION_ANGLE) + PLAYER.dirY * cos(-ROTATION_ANGLE)) * MOVE_SPEED;
+		if (hitbox_wallhit(cub3d, PLAYER.posX + ((PLAYER.dirX * cos(-ROTATION_ANGLE) - PLAYER.dirY * sin(-ROTATION_ANGLE)) * cub3d->move_speed), PLAYER.posY))
+			PLAYER.posX += (PLAYER.dirX * cos(-ROTATION_ANGLE) - PLAYER.dirY * sin(-ROTATION_ANGLE)) * cub3d->move_speed;
+		if (hitbox_wallhit(cub3d, PLAYER.posX, PLAYER.posY + (oldDirX * sin(-ROTATION_ANGLE) + PLAYER.dirY * cos(-ROTATION_ANGLE)) * cub3d->move_speed))
+ 			PLAYER.posY += (oldDirX * sin(-ROTATION_ANGLE) + PLAYER.dirY * cos(-ROTATION_ANGLE)) * cub3d->move_speed;
 	}
 }
 
@@ -159,6 +159,20 @@ int	key_release_hook(int key, t_cub3d *cub3d)
 				cub3d->map_struct.map_strs[door->y][door->x] = 'D';
 			}
 		}
+	}
+	else if (key == PLUS)
+	{
+		if (cub3d->move_speed + 0.02f < 0.5f)
+			cub3d->move_speed += 0.02f;
+		if (cub3d->move_speed + 0.01f < 0.2f)
+			cub3d->camera_speed += 0.01f;
+	}
+	else if (key == MINUS)
+	{
+		if (cub3d->move_speed - 0.02f > 0.01f)
+			cub3d->move_speed -= 0.02f;
+		if (cub3d->camera_speed - 0.01f > 0.01f)
+			cub3d->camera_speed -= 0.01f;
 	}
 	return (0);
 }
