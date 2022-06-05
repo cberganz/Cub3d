@@ -6,7 +6,7 @@
 /*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 20:01:29 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 20:31:49 by cberganz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,30 +53,15 @@
 # define PIXEL_PER_CUBE 10
 # define CUBE_PER_LINE 20
 # define SIZE_AROUND_PLAYER 10
-# define MINIMAP_WIDTH (PIXEL_PER_CUBE * CUBE_PER_LINE)
-# define MINIMAP_HEIGHT (PIXEL_PER_CUBE * CUBE_PER_LINE)
-# define MINIMAP_CENTER (MINIMAP_WIDTH / 2)
+# define MINIMAP_WIDTH 200
+# define MINIMAP_HEIGHT 200
+# define MINIMAP_CENTER 100
 # define DIRECTION_LINE_SIZE 10
 # define DIRECTION_LINE_WIDTH 1.5
 # define MINIMAP_FLOOR_COLOR 0xDE9151
 # define MINIMAP_PLAYER_COLOR 0xBB0A21
 # define MINIMAP_WALL_COLOR 0x6E7E85
 # define MINIMAP_OUTMAP_COLOR 0x001A23
-
-/*
-** Overlay settings
-*/
-
-# define OVERLAY_HEIGHT (SCREEN_HEIGHT - SCREEN_WIDTH)
-# define OVERLAY_WIDTH SCREEN_WIDTH
-# define OVERLAY_BACKGROUND_COLOR 0x3F7CAC
-# define LIFE_POS_X 100
-# define LIFE_POS_Y (SCREEN_WIDTH + 20)
-# define LIFE_COLOR 0xFFFFFF
-# define TORCH_POS_X (SCREEN_WIDTH * 3 / 4 - 32)
-# define TORCH_POS_Y (SCREEN_HEIGHT  - 128)
-# define FIRE_POS_X (SCREEN_WIDTH * 3 / 4 - 20)
-# define FIRE_POS_Y (TORCH_POS_Y  - 80)
 
 /*
 ** Raycast settings
@@ -195,83 +180,79 @@ typedef struct s_raycast
 }	t_raycast;
 
 // AJOUTE PAR ROBIN 
-typedef struct	s_color
+typedef struct s_color
 {
 	int	octet[3];
-}				t_color;
+}	t_color;
 
-
-typedef struct	s_wall_textures
+typedef struct s_wall_textures
 {
 	char		cardinals_array[6][4];
 	char		*textures_paths[6];
 	t_color		colors[2];
-}				t_wall_textures;
+}	t_wall_textures;
 
-typedef struct	s_map
+typedef struct s_map
 {
 	unsigned int		width;
 	unsigned int		height;
 	char				**map_strs;
-}				t_map;
+}	t_map;
 
-typedef struct	s_door
+typedef struct s_door
 {
 	int					increment_step;
 	unsigned int		x;
 	unsigned int		y;
 	unsigned int		step_percent;
-}				t_door;
+}	t_door;
 
 // AJOUTE PAR ROBIN 
 
 typedef struct s_cub3d
 {
-	void		*mlx;
-	void		*mlx_win;
-	char		**map;
-	int			height;
-	int			width;
-	float		move_speed;
-	float		camera_speed;
-	// AJOUTE PAR ROBIN 
-	
+	void			*mlx;
+	void			*mlx_win;
+	char			**map;
+	int				height;
+	int				width;
+	float			move_speed;
+	float			camera_speed;
 	char			**file_to_strs;
-	t_wall_textures wall_textures;
+	t_wall_textures	wall_textures;
 	t_image			sprites[5];
 	t_image			torch_sprites[8];
 	t_map			map_struct;
 	int				doors_nbr;
 	t_door			*doors;
-	
-	// AJOUTE PAR ROBIN 
-	uint8_t		mouse_set;
-    t_tex		minimap_img;
-    t_tex		overlay_img;
-	t_tex		raycast_img;
-	t_colors	colors;
-	t_keyboard	keyboard;
-	t_raycast	raycast;
-	t_player	player;
+	uint8_t			mouse_set;
+	t_tex			minimap_img;
+	t_tex			overlay_img;
+	t_tex			raycast_img;
+	t_colors		colors;
+	t_keyboard		keyboard;
+	t_raycast		raycast;
+	t_player		player;
 }	t_cub3d;
 
 /*
 ** Initialization functions
 */
 
-void    img_initialize(t_cub3d *cub3d, t_tex *minimap_img, int width, int height);
-void    window_initialize(t_cub3d *cub3d);
-void    game_initialize(t_cub3d *cub3d);
+void	img_initialize(t_cub3d *cub3d, t_tex *minimap_img,
+			int width, int height);
+void	window_initialize(t_cub3d *cub3d);
+void	game_initialize(t_cub3d *cub3d);
 
 /*
 ** Game functions
 */
 
-void    game_loop(t_cub3d *cub3d);
-void    mouse_rotation(t_cub3d *cub3d);
+void	game_loop(t_cub3d *cub3d);
+void	mouse_rotation(t_cub3d *cub3d);
 void	set_mouse(t_cub3d *cub3d);
-void    raycast(t_cub3d *cub3d, t_raycast *raycast);
-t_door  *targeted_door(t_cub3d *cub3d);
+void	raycast(t_cub3d *cub3d, t_raycast *raycast);
+t_door	*targeted_door(t_cub3d *cub3d);
 void	insert_torch(t_cub3d *cub3d);
 void	insert_flame(t_cub3d *cub3d);
 void	put_pixel_to_img(t_tex *img, int x, int y, int color);
@@ -290,7 +271,7 @@ void	move_player(t_cub3d *cub3d, t_player *player);
 ** Minimap and overlay functions
 */
 
-void    draw_minimap(t_cub3d *cub3d);
+void	draw_minimap(t_cub3d *cub3d);
 
 /*
 **	PARSING ROBIN
@@ -329,14 +310,14 @@ void	error_message_and_exit(int exit_code, char *message);
 ** Tools functions
 */
 
-int     get_trgb(int t, int r, int g, int b);
-float  	get_distance(float x1, float y1, float x2, float y2);
+int		get_trgb(int t, int r, int g, int b);
+float	get_distance(float x1, float y1, float x2, float y2);
 
 /*
 ** Exit functions
 */
 
-void    exit_game(t_cub3d *cub3d, char *msg, int exit_status);
-int     exit_button(t_cub3d *cub3d);
+void	exit_game(t_cub3d *cub3d, char *msg, int exit_status);
+int		exit_button(t_cub3d *cub3d);
 
 #endif
