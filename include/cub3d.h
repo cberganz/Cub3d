@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cberganz <cberganz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 14:16:14 by cberganz          #+#    #+#             */
-/*   Updated: 2022/06/05 20:01:29 by cberganz         ###   ########.fr       */
+/*   Updated: 2022/06/05 20:18:00 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,6 +285,7 @@ int		key_press_hook(int key, t_cub3d *cub3d);
 int		key_release_hook(int key, t_cub3d *cub3d);
 void	move_vision(t_cub3d *cub3d, t_player *player);
 void	move_player(t_cub3d *cub3d, t_player *player);
+float	get_open_percentage(t_cub3d *cub3d);
 
 /*
 ** Minimap and overlay functions
@@ -324,6 +325,7 @@ void	free_and_exit(int exit_code);
 bool	is_int_overflow(char *str_nbr);
 bool	is_str_digit(char *str);
 void	error_message_and_exit(int exit_code, char *message);
+void	find_pix(t_cub3d *cub, int y, unsigned char **pix, t_image *sprite);
 
 /*
 ** Tools functions
