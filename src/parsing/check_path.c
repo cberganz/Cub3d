@@ -6,7 +6,7 @@
 /*   By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 22:29:21 by rbicanic          #+#    #+#             */
-/*   Updated: 2022/06/03 14:08:56 by rbicanic         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:27:43 by rbicanic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ bool	textures_paths_are_correct(t_cub3d prog)
 	wall_text = prog.wall_textures;
 	while (i < 4)
 	{
-		if (!is_valid_extension_path(wall_text.textures_paths[i], ".xpm")
+		if (!is_valid_extension_path(wall_text.textures_paths[i], ".xpm" )
 			|| !file_exist(wall_text.textures_paths[i]))
 			return (false);
 		i++;

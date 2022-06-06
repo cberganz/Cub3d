@@ -6,12 +6,12 @@
 #    By: rbicanic <rbicanic@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/29 14:42:18 by cberganz          #+#    #+#              #
-#    Updated: 2022/06/05 22:31:45 by rbicanic         ###   ########.fr        #
+#    Updated: 2022/06/06 15:02:13 by rbicanic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= Cub3d
-NAME_BONUS		= Cub3d_bonus
+NAME			= cub3D
+NAME_BONUS		= cub3D_bonus
 
 INCLUDE			= include/
 

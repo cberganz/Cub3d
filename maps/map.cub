@@ -1,8 +1,8 @@
-NO  sprites/wall_lighter.xpm
-SO  sprites/grey_bricks.xpm
-WE  sprites/bricks.xpm
-EA  sprites/wall_dark.xpm
-F   5,175,31
+NO  sprites/naturalbricks_hd_almostlight.xpm
+SO  sprites/naturalbricks_hd_almostlight.xpm
+WE  sprites/naturalbricks_hd_verydark.xpm
+EA  sprites/naturalbricks_hd_verydark.xpm
+F   104,106,105
 C   40,177,214
 
 
