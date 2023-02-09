@@ -2,7 +2,7 @@
 
 | Project Name | Cub3d |
 | :-: | :-: |
-| Description | A raycasting project that aims to reproduct Wolfenstein |
+| Description | A raycasting project that aims to reproduce Wolfenstein |
 | Technologies | <a href="#"><img alt="C" src="https://custom-icon-badges.demolab.com/badge/C-03599C.svg?logo=c-in-hexagon&logoColor=white&style=for-the-badge"></a> |
 | External libraries | open(), close(), read(), write(), printf(), malloc(), free(), perror(), strerror(), exit(), All functions from math.h, All functions of the MinilibX |
 | Final grade | 125/125 |
